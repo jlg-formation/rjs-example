@@ -1,4 +1,6 @@
 import { css } from '@emotion/react'
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useArticleStore } from '../store/ArticleStore'
@@ -37,7 +39,10 @@ const ListView = () => {
             {hasAlreadyLoaded === false && (
               <tr>
                 <td colSpan={3}>
-                  <div className="loading">Chargement...</div>
+                  <div className="loading">
+                    <FontAwesomeIcon icon={faCircleNotch} spin={true} />
+                    <span>Chargement...</span>
+                  </div>
                 </td>
               </tr>
             )}
