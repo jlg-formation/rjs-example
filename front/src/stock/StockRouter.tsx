@@ -11,7 +11,7 @@ export const stockRouterObject = (path: string): RouteObject => {
         element: <ListView />,
       },
       {
-        path: 'legal',
+        path: 'add',
         element: <AddView />,
       },
     ],
