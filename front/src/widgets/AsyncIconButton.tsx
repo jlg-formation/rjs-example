@@ -1,9 +1,9 @@
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
-const AsyncIconButton = ({
+const AsyncIconButton = memo(function AsyncIconButton({
   title,
   asyncCallback,
   icon,
@@ -11,7 +11,7 @@ const AsyncIconButton = ({
   title: string
   asyncCallback: () => Promise<void>
   icon: IconDefinition
-}) => {
+}) {
   console.log('render asyncIconButton with title', title)
 
   const [isDoing, setIsDoing] = useState(false)
@@ -32,6 +32,6 @@ const AsyncIconButton = ({
       <FontAwesomeIcon icon={isDoing ? faCircleNotch : icon} spin={isDoing} />
     </button>
   )
-}
+})
 
 export default AsyncIconButton

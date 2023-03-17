@@ -6,7 +6,7 @@ import {
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { sleep } from '../../misc'
 import AsyncIconButton from '../../widgets/AsyncIconButton'
@@ -27,13 +27,13 @@ const ListView = () => {
     }
   }, [])
 
-  const handleRefresh = async () => {
+  const handleRefresh = useCallback(async () => {
     await refresh()
-  }
+  }, [])
 
-  const handleRemove = async () => {
+  const handleRemove = useCallback(async () => {
     await sleep(1000)
-  }
+  }, [])
 
   return (
     <main css={s}>
