@@ -34,6 +34,13 @@ const ListView = () => {
             </tr>
           </thead>
           <tbody>
+            {hasAlreadyLoaded === false && (
+              <tr>
+                <td colSpan={3}>
+                  <div className="loading">Chargement...</div>
+                </td>
+              </tr>
+            )}
             {articles.map((a) => (
               <tr key={a.id}>
                 <td className="name">{a.name}</td>
@@ -67,5 +74,12 @@ const s = css`
     .qty {
       text-align: right;
     }
+  }
+
+  div.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
   }
 `
