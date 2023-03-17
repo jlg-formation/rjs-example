@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom'
 const HomeView = () => (
   <main>
     <h1>Gérer efficacement votre stock !</h1>
-    <Link to="/stock">Voir le stock</Link>
+    <Link to="/stock" className="button primary">
+      Voir le stock
+    </Link>
   </main>
 )
 
