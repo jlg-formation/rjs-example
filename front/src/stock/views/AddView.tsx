@@ -14,7 +14,7 @@ const AddView = () => (
         <span>Quantité</span>
         <input type="text" />
       </label>
-      <button>Ajouter</button>
+      <button className="primary">Ajouter</button>
     </form>
   </main>
 )
