@@ -1,9 +1,19 @@
 import { css } from '@emotion/react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useArticleStore } from '../store/ArticleStore'
 
 const ListView = () => {
-  const { articles } = useArticleStore()
+  const { articles, hasAlreadyLoaded, refresh } = useArticleStore()
+  useEffect(() => {
+    console.log('hasAlreadyLoaded: ', hasAlreadyLoaded)
+    if (hasAlreadyLoaded === false) {
+      refresh().then(() => {
+        console.log('loaded')
+      })
+    }
+  }, [])
+
   return (
     <main css={s}>
       <h1>Liste des articles</h1>
