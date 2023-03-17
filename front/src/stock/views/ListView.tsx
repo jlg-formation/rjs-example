@@ -22,12 +22,16 @@ const ListView = () => {
     }
   }, [])
 
+  const handleRefresh = async () => {
+    await refresh()
+  }
+
   return (
     <main css={s}>
       <h1>Liste des articles</h1>
       <div className="content">
         <nav>
-          <button title="Rafraîchir">
+          <button title="Rafraîchir" onClick={handleRefresh}>
             <FontAwesomeIcon icon={faRotateForward} />
           </button>
           <Link to="add" className="button" title="Ajouter">
