@@ -1,8 +1,9 @@
 import { Component, ReactNode } from 'react'
+import { Outlet } from 'react-router-dom'
 
 class BodyLayout extends Component {
   override render(): ReactNode {
-    return <p>Body Layout ok</p>
+    return <Outlet />
   }
 }
 
