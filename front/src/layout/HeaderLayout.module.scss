@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  align-items: center;
+  height: 3em;
+  padding: 0 0.5em;
+  background-color: #eee;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+
+    text-decoration: inherit;
+    color: inherit;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    span {
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+    img {
+      height: 2.5em;
+    }
+  }
+}
