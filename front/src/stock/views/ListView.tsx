@@ -6,13 +6,16 @@ import {
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useArticleStore } from '../store/ArticleStore'
 
 const ListView = () => {
   const { articles, hasAlreadyLoaded, loadingError, refresh } =
     useArticleStore()
+
+  const [isRefreshing, setIsRefreshing] = useState(false)
+
   useEffect(() => {
     console.log('hasAlreadyLoaded: ', hasAlreadyLoaded)
     if (hasAlreadyLoaded === false) {
@@ -23,7 +26,12 @@ const ListView = () => {
   }, [])
 
   const handleRefresh = async () => {
-    await refresh()
+    try {
+      setIsRefreshing(true)
+      await refresh()
+    } finally {
+      setIsRefreshing(false)
+    }
   }
 
   return (
@@ -31,8 +39,15 @@ const ListView = () => {
       <h1>Liste des articles</h1>
       <div className="content">
         <nav>
-          <button title="Rafraîchir" onClick={handleRefresh}>
-            <FontAwesomeIcon icon={faRotateForward} />
+          <button
+            title="Rafraîchir"
+            onClick={handleRefresh}
+            disabled={isRefreshing}
+          >
+            <FontAwesomeIcon
+              icon={isRefreshing ? faCircleNotch : faRotateForward}
+              spin={isRefreshing}
+            />
           </button>
           <Link to="add" className="button" title="Ajouter">
             <FontAwesomeIcon icon={faPlus} />
