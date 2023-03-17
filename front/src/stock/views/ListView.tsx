@@ -11,7 +11,8 @@ import { Link } from 'react-router-dom'
 import { useArticleStore } from '../store/ArticleStore'
 
 const ListView = () => {
-  const { articles, hasAlreadyLoaded, refresh } = useArticleStore()
+  const { articles, hasAlreadyLoaded, loadingError, refresh } =
+    useArticleStore()
   useEffect(() => {
     console.log('hasAlreadyLoaded: ', hasAlreadyLoaded)
     if (hasAlreadyLoaded === false) {
@@ -36,6 +37,9 @@ const ListView = () => {
             <FontAwesomeIcon icon={faTrashAlt} />
           </button>
         </nav>
+        <div className="error">
+          {loadingError && 'Erreur lors du chargement'}
+        </div>
         <table>
           <thead>
             <tr>
@@ -95,5 +99,12 @@ const s = css`
     justify-content: center;
     align-items: center;
     gap: 0.5em;
+  }
+
+  div.error {
+    height: 1em;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
   }
 `
