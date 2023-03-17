@@ -1,12 +1,9 @@
 import { css } from '@emotion/react'
 import { Link } from 'react-router-dom'
-import { Article } from '../interfaces/Article'
+import { useArticleStore } from '../store/ArticleStore'
 
 const ListView = () => {
-  const articles: Article[] = [
-    { id: 'a1', name: 'Tournevis', price: 2.99, qty: 11 },
-    { id: 'a2', name: 'Marteau', price: 5, qty: 145 },
-  ]
+  const { articles } = useArticleStore()
   return (
     <main css={s}>
       <h1>Liste des articles</h1>
