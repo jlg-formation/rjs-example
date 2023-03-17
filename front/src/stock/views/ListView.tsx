@@ -1,5 +1,10 @@
 import { css } from '@emotion/react'
-import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCircleNotch,
+  faPlus,
+  faRotateForward,
+  faTrashAlt,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
@@ -21,11 +26,15 @@ const ListView = () => {
       <h1>Liste des articles</h1>
       <div className="content">
         <nav>
-          <button>Rafraîchir</button>
-          <Link to="add" className="button">
-            Ajouter
+          <button title="Rafraîchir">
+            <FontAwesomeIcon icon={faRotateForward} />
+          </button>
+          <Link to="add" className="button" title="Ajouter">
+            <FontAwesomeIcon icon={faPlus} />
           </Link>
-          <button>Supprimer</button>
+          <button title="Supprimer">
+            <FontAwesomeIcon icon={faTrashAlt} />
+          </button>
         </nav>
         <table>
           <thead>

@@ -1,3 +1,6 @@
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 const AddView = () => (
   <main>
     <h1>Ajouter un article</h1>
@@ -14,7 +17,10 @@ const AddView = () => (
         <span>Quantité</span>
         <input type="text" />
       </label>
-      <button className="primary">Ajouter</button>
+      <button className="primary">
+        <FontAwesomeIcon icon={faPlus} />
+        <span>Ajouter</span>
+      </button>
     </form>
   </main>
 )
