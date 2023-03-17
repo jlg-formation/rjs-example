@@ -1,12 +1,15 @@
+import { css } from '@emotion/react'
 import { Link } from 'react-router-dom'
 
 const ListView = () => (
-  <main>
+  <main css={s}>
     <h1>Liste des articles</h1>
     <div className="content">
       <nav>
         <button>Rafraîchir</button>
-        <Link to="add">Ajouter</Link>
+        <Link to="add" className="button">
+          Ajouter
+        </Link>
         <button>Supprimer</button>
       </nav>
       <table>
@@ -45,3 +48,23 @@ const ListView = () => (
 )
 
 export default ListView
+
+const s = css`
+  div.content {
+    display: flex;
+    flex-flow: column;
+    gap: 1em;
+
+    nav {
+      display: flex;
+      gap: 0.3em;
+    }
+  }
+
+  table {
+    .price,
+    .qty {
+      text-align: right;
+    }
+  }
+`
