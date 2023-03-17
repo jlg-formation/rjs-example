@@ -1,6 +1,11 @@
 @use '../node_modules/normalize.css/normalize.css';
 @use '../node_modules/sanitize.css/sanitize.css';
 
+@use './scss/_main.scss';
+@use './scss/_button.scss';
+@use './scss/_table.scss';
+@use './scss/_form.scss';
+
 body {
   font-family: sans-serif;
 }
