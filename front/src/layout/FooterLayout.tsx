@@ -1,8 +1,9 @@
 import { css } from '@emotion/react'
+import { Link } from 'react-router-dom'
 
 const FooterLayout = () => (
   <footer css={s}>
-    <a href="#">Mentions Légales</a>
+    <Link to="/legal">Mentions Légales</Link>
   </footer>
 )
 
