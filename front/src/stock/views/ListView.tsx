@@ -1,8 +1,9 @@
 import { css } from '@emotion/react'
 import { Link } from 'react-router-dom'
+import { Article } from '../interfaces/Article'
 
 const ListView = () => {
-  const articles = [
+  const articles: Article[] = [
     { id: 'a1', name: 'Tournevis', price: 2.99, qty: 11 },
     { id: 'a2', name: 'Marteau', price: 5, qty: 145 },
   ]
