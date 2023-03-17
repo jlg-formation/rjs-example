@@ -6,15 +6,17 @@ import {
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { sleep } from '../../misc'
+import AsyncIconButton from '../../widgets/AsyncIconButton'
 import { useArticleStore } from '../store/ArticleStore'
 
 const ListView = () => {
+  console.log('render ListView')
+
   const { articles, hasAlreadyLoaded, loadingError, refresh } =
     useArticleStore()
-
-  const [isRefreshing, setIsRefreshing] = useState(false)
 
   useEffect(() => {
     console.log('hasAlreadyLoaded: ', hasAlreadyLoaded)
@@ -26,12 +28,11 @@ const ListView = () => {
   }, [])
 
   const handleRefresh = async () => {
-    try {
-      setIsRefreshing(true)
-      await refresh()
-    } finally {
-      setIsRefreshing(false)
-    }
+    await refresh()
+  }
+
+  const handleRemove = async () => {
+    await sleep(1000)
   }
 
   return (
@@ -39,22 +40,19 @@ const ListView = () => {
       <h1>Liste des articles</h1>
       <div className="content">
         <nav>
-          <button
+          <AsyncIconButton
             title="Rafraîchir"
-            onClick={handleRefresh}
-            disabled={isRefreshing}
-          >
-            <FontAwesomeIcon
-              icon={isRefreshing ? faCircleNotch : faRotateForward}
-              spin={isRefreshing}
-            />
-          </button>
+            asyncCallback={handleRefresh}
+            icon={faRotateForward}
+          />
           <Link to="add" className="button" title="Ajouter">
             <FontAwesomeIcon icon={faPlus} />
           </Link>
-          <button title="Supprimer">
-            <FontAwesomeIcon icon={faTrashAlt} />
-          </button>
+          <AsyncIconButton
+            title="Supprimer"
+            asyncCallback={handleRemove}
+            icon={faTrashAlt}
+          />
         </nav>
         <div className="error">
           {loadingError && 'Erreur lors du chargement'}
