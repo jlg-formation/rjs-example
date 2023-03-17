@@ -1,7 +1,7 @@
-import { css } from '@emotion/css'
+import { css } from '@emotion/react'
 
 const FooterLayout = () => (
-  <footer className={s}>
+  <footer css={s}>
     <a href="#">Mentions Légales</a>
   </footer>
 )
