@@ -6,10 +6,11 @@ import {
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { sleep } from '../../misc'
 import AsyncIconButton from '../../widgets/AsyncIconButton'
+import { Article } from '../interfaces/Article'
 import { useArticleStore } from '../store/ArticleStore'
 
 const ListView = () => {
@@ -17,6 +18,8 @@ const ListView = () => {
 
   const { articles, hasAlreadyLoaded, loadingError, refresh } =
     useArticleStore()
+
+  const [selectedArticle, setSelectedArticle] = useState(new Set<Article>())
 
   useEffect(() => {
     console.log('hasAlreadyLoaded: ', hasAlreadyLoaded)
@@ -34,6 +37,18 @@ const ListView = () => {
   const handleRemove = useCallback(async () => {
     await sleep(1000)
   }, [])
+
+  const handleSelect = useCallback(
+    (a: Article) => () => {
+      if (selectedArticle.has(a)) {
+        selectedArticle.delete(a)
+      } else {
+        selectedArticle.add(a)
+      }
+      setSelectedArticle(new Set(selectedArticle))
+    },
+    [],
+  )
 
   return (
     <main css={s}>
@@ -77,7 +92,11 @@ const ListView = () => {
               </tr>
             )}
             {articles.map((a) => (
-              <tr key={a.id}>
+              <tr
+                key={a.id}
+                onClick={handleSelect(a)}
+                className={selectedArticle.has(a) ? 'selected' : ''}
+              >
                 <td className="name">{a.name}</td>
                 <td className="price">{a.price} €</td>
                 <td className="qty">{a.qty}</td>
