@@ -1,4 +1,4 @@
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   ChangeEvent,
@@ -22,18 +22,23 @@ const AddView = () => {
   const [price, setPrice] = useState(0)
   const [qty, setQty] = useState(0)
 
+  const [isAdding, setIsAdding] = useState(false)
+
   const { add, refresh } = useArticleStore()
   const navigate = useNavigate()
 
   const handleSubmit = async (event: FormEvent<HTMLElement>) => {
     try {
       event.preventDefault()
+      setIsAdding(true)
       const newArticle: NewArticle = { name, price, qty }
       await add(newArticle)
       await refresh()
       navigate('..')
     } catch (err) {
       console.log('err: ', err)
+    } finally {
+      setIsAdding(false)
     }
   }
 
@@ -57,8 +62,11 @@ const AddView = () => {
           <span>Quantité</span>
           <input type="number" value={qty} onChange={handleChange(setQty)} />
         </label>
-        <button className="primary">
-          <FontAwesomeIcon icon={faPlus} />
+        <button className="primary" disabled={isAdding}>
+          <FontAwesomeIcon
+            icon={isAdding ? faCircleNotch : faPlus}
+            spin={isAdding}
+          />
           <span>Ajouter</span>
         </button>
       </form>
