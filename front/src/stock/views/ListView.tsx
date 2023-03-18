@@ -40,11 +40,10 @@ const ListView = () => {
 
   const handleSelect = useCallback(
     (a: Article) => () => {
-      if (selectedArticle.has(a)) {
-        selectedArticle.delete(a)
-      } else {
-        selectedArticle.add(a)
-      }
+      selectedArticle.has(a)
+        ? selectedArticle.delete(a)
+        : selectedArticle.add(a)
+
       setSelectedArticle(new Set(selectedArticle))
     },
     [],

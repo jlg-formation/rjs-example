@@ -18,6 +18,7 @@
   "rules": {
     "eqeqeq": "error",
     "react/react-in-jsx-scope": "off",
-    "react/no-unknown-property": ["error", { "ignore": ["css"] }]
+    "react/no-unknown-property": ["error", { "ignore": ["css"] }],
+    "no-else-return": "error"
   }
 }
