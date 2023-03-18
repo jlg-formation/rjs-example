@@ -62,11 +62,13 @@ const ListView = () => {
           <Link to="add" className="button" title="Ajouter">
             <FontAwesomeIcon icon={faPlus} />
           </Link>
-          <AsyncIconButton
-            title="Supprimer"
-            asyncCallback={handleRemove}
-            icon={faTrashAlt}
-          />
+          {selectedArticle.size > 0 && (
+            <AsyncIconButton
+              title="Supprimer"
+              asyncCallback={handleRemove}
+              icon={faTrashAlt}
+            />
+          )}
         </nav>
         <div className="error">
           {loadingError && 'Erreur lors du chargement'}
