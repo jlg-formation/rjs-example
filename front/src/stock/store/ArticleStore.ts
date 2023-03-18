@@ -1,12 +1,13 @@
 import { create } from 'zustand'
 import { api } from '../api'
-import { Article } from '../interfaces/Article'
+import { Article, NewArticle } from '../interfaces/Article'
 
 export interface ArticleStore {
   articles: Article[]
   hasAlreadyLoaded: boolean
   loadingError: boolean
   refresh: () => Promise<void>
+  add: (newArticle: NewArticle) => Promise<void>
 }
 
 export const useArticleStore = create<ArticleStore>((set) => {
@@ -24,6 +25,9 @@ export const useArticleStore = create<ArticleStore>((set) => {
       } catch (err) {
         set({ articles: [], hasAlreadyLoaded: true, loadingError: true })
       }
+    },
+    add: async (newArticle: NewArticle) => {
+      console.log('adding newArticle: ', newArticle)
     },
   }
 })

@@ -1,6 +1,15 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useState,
+} from 'react'
+import { useNavigate } from 'react-router-dom'
+import { NewArticle } from '../interfaces/Article'
+import { useArticleStore } from '../store/ArticleStore'
 
 const handleChange =
   <T,>(setState: Dispatch<SetStateAction<T>>) =>
@@ -9,14 +18,28 @@ const handleChange =
   }
 
 const AddView = () => {
-  const [name, setName] = useState('')
+  const [name, setName] = useState('Truc')
   const [price, setPrice] = useState(0)
   const [qty, setQty] = useState(0)
+
+  const { add } = useArticleStore()
+  const navigate = useNavigate()
+
+  const handleSubmit = async (event: FormEvent<HTMLElement>) => {
+    try {
+      event.preventDefault()
+      const newArticle: NewArticle = { name, price, qty }
+      await add(newArticle)
+      navigate('..')
+    } catch (err) {
+      console.log('err: ', err)
+    }
+  }
 
   return (
     <main>
       <h1>Ajouter un article</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>
           <span>Nom</span>
           <input type="text" value={name} onChange={handleChange(setName)} />
