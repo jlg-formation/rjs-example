@@ -27,7 +27,13 @@ export const useArticleStore = create<ArticleStore>((set) => {
       }
     },
     add: async (newArticle: NewArticle) => {
-      console.log('adding newArticle: ', newArticle)
+      try {
+        console.log('adding newArticle: ', newArticle)
+        await api.add(newArticle)
+      } catch (err) {
+        console.log('err: ', err)
+        throw new Error('Technical Error')
+      }
     },
   }
 })

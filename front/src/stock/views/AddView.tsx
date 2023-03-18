@@ -22,7 +22,7 @@ const AddView = () => {
   const [price, setPrice] = useState(0)
   const [qty, setQty] = useState(0)
 
-  const { add } = useArticleStore()
+  const { add, refresh } = useArticleStore()
   const navigate = useNavigate()
 
   const handleSubmit = async (event: FormEvent<HTMLElement>) => {
@@ -30,6 +30,7 @@ const AddView = () => {
       event.preventDefault()
       const newArticle: NewArticle = { name, price, qty }
       await add(newArticle)
+      await refresh()
       navigate('..')
     } catch (err) {
       console.log('err: ', err)
