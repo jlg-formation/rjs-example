@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { sleep } from '../../misc'
 import { api } from '../api'
 import { Article, NewArticle } from '../interfaces/Article'
 
@@ -8,6 +9,7 @@ export interface ArticleStore {
   loadingError: boolean
   refresh: () => Promise<void>
   add: (newArticle: NewArticle) => Promise<void>
+  remove: (ids: string[]) => Promise<void>
 }
 
 export const useArticleStore = create<ArticleStore>((set) => {
@@ -30,6 +32,15 @@ export const useArticleStore = create<ArticleStore>((set) => {
       try {
         console.log('adding newArticle: ', newArticle)
         await api.add(newArticle)
+      } catch (err) {
+        console.log('err: ', err)
+        throw new Error('Technical Error')
+      }
+    },
+    remove: async (ids: string[]) => {
+      try {
+        await sleep(300)
+        await api.remove(ids)
       } catch (err) {
         console.log('err: ', err)
         throw new Error('Technical Error')

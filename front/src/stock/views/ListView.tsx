@@ -8,7 +8,6 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { sleep } from '../../misc'
 import AsyncIconButton from '../../widgets/AsyncIconButton'
 import { Article } from '../interfaces/Article'
 import { useArticleStore } from '../store/ArticleStore'
@@ -16,7 +15,7 @@ import { useArticleStore } from '../store/ArticleStore'
 const ListView = () => {
   console.log('render ListView')
 
-  const { articles, hasAlreadyLoaded, loadingError, refresh } =
+  const { articles, hasAlreadyLoaded, loadingError, refresh, remove } =
     useArticleStore()
 
   const [selectedArticle, setSelectedArticle] = useState(new Set<Article>())
@@ -35,7 +34,9 @@ const ListView = () => {
   }, [])
 
   const handleRemove = useCallback(async () => {
-    await sleep(1000)
+    await remove([...selectedArticle].map((a) => a.id))
+    await refresh()
+    setSelectedArticle(new Set())
   }, [])
 
   const handleSelect = useCallback(
