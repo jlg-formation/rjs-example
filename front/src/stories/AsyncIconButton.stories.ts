@@ -3,8 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react'
 import AsyncIconButton from '../widgets/AsyncIconButton'
 
 import '../index.scss'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { sleep } from '../misc'
+import '../font-awesome'
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -17,6 +17,12 @@ const meta = {
   },
 } satisfies Meta<typeof AsyncIconButton>
 
+const waitFor = (delay: number) => async () => {
+  console.log('start')
+  await sleep(delay)
+  console.log('stop')
+}
+
 export default meta
 type Story = StoryObj<typeof meta>
 
@@ -24,11 +30,13 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     title: 'Click Me',
-    icon: faPlus,
-    asyncCallback: async () => {
-      console.log('start')
-      await sleep(2000)
-      console.log('stop')
+    icon: 'plus',
+    asyncCallback: waitFor(2000),
+  },
+  argTypes: {
+    icon: {
+      options: ['plus', 'trash-can'],
+      control: { type: 'select' },
     },
   },
 }

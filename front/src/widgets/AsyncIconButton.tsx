@@ -1,5 +1,4 @@
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
-import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
+import { IconName } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { memo, useState } from 'react'
 
@@ -9,8 +8,8 @@ const AsyncIconButton = memo(function AsyncIconButton({
   icon,
 }: {
   title: string
-  asyncCallback: () => Promise<void>
-  icon: IconDefinition
+  asyncCallback?: () => Promise<void>
+  icon: IconName
 }) {
   console.log('render asyncIconButton with title', title)
 
@@ -19,7 +18,9 @@ const AsyncIconButton = memo(function AsyncIconButton({
   const handleClick = async () => {
     try {
       setIsDoing(true)
-      await asyncCallback()
+      if (asyncCallback) {
+        await asyncCallback()
+      }
     } catch (err) {
       console.log('err: ', err)
     } finally {
@@ -29,7 +30,7 @@ const AsyncIconButton = memo(function AsyncIconButton({
 
   return (
     <button title={title} onClick={handleClick} disabled={isDoing}>
-      <FontAwesomeIcon icon={isDoing ? faCircleNotch : icon} spin={isDoing} />
+      <FontAwesomeIcon icon={isDoing ? 'circle-notch' : icon} spin={isDoing} />
     </button>
   )
 })
