@@ -1,8 +1,9 @@
 import RepeatHoc from '../../hoc/RepeatHoc'
 
 const RepeatXTimes = RepeatHoc(
-  ({ color }: { color: string }) => (
+  ({ color, index }: { color: string; index: number }) => (
     <>
+      <p>This is paragraph number {index}</p>
       <p style={{ color: color }}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores dolorem
         quam quia minima velit accusamus earum, sit unde quidem molestiae
