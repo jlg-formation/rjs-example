@@ -1,10 +1,5 @@
 import { css } from '@emotion/react'
-import {
-  faCircleNotch,
-  faPlus,
-  faRotateForward,
-  faTrashAlt,
-} from '@fortawesome/free-solid-svg-icons'
+import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -58,7 +53,7 @@ const ListView = () => {
           <AsyncIconButton
             title="Rafraîchir"
             asyncCallback={handleRefresh}
-            icon={faRotateForward}
+            icon="rotate-forward"
           />
           <Link to="add" className="button" title="Ajouter">
             <FontAwesomeIcon icon={faPlus} />
@@ -67,7 +62,7 @@ const ListView = () => {
             <AsyncIconButton
               title="Supprimer"
               asyncCallback={handleRemove}
-              icon={faTrashAlt}
+              icon="trash-alt"
             />
           )}
         </nav>

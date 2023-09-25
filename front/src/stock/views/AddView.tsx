@@ -1,4 +1,3 @@
-import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   ChangeEvent,
@@ -64,7 +63,7 @@ const AddView = () => {
         </label>
         <button className="primary" disabled={isAdding}>
           <FontAwesomeIcon
-            icon={isAdding ? faCircleNotch : faPlus}
+            icon={isAdding ? 'circle-notch' : 'plus'}
             spin={isAdding}
           />
           <span>Ajouter</span>

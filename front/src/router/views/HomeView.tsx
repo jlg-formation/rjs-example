@@ -1,5 +1,4 @@
 import { css } from '@emotion/react'
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
 
@@ -8,7 +7,7 @@ const HomeView = () => (
     <h1>Gérer efficacement votre stock !</h1>
     <Link to="/stock" className="button primary">
       <span>Voir le stock</span>
-      <FontAwesomeIcon icon={faAngleRight} />
+      <FontAwesomeIcon icon="angle-right" />
     </Link>
   </main>
 )
