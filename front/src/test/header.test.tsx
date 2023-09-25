@@ -1,7 +1,6 @@
-import React from 'react'
 import { describe, expect, test } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import HeaderLayout from '../src/layout/HeaderLayout'
+import HeaderLayout from '../layout/HeaderLayout'
 import { BrowserRouter } from 'react-router-dom'
 
 describe('Header test', () => {
