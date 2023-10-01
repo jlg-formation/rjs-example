@@ -1,15 +1,13 @@
 import { RouterProvider } from 'react-router-dom'
 import './App.css'
-import { ThemeContext } from './contexts/ThemeContext'
-import { useTheme } from './hooks/theme'
 import { router } from './router/AppRouter'
+import { ThemeProvider } from './widgets/ThemeProvider'
 
 function App() {
-  const { theme, setTheme } = useTheme('light')
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeProvider initial="light">
       <RouterProvider router={router} />
-    </ThemeContext.Provider>
+    </ThemeProvider>
   )
 }
 
