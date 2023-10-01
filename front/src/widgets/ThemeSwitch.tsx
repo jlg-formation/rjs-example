@@ -21,7 +21,7 @@ export const ThemeSwitch = () => {
 
 const s = css`
   cursor: pointer;
-  background: #ddd;
+  background: var(--ddd);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,6 +30,6 @@ const s = css`
   border-radius: 100%;
 
   &:hover {
-    background: #ccc;
+    background: var(--ccc);
   }
 `

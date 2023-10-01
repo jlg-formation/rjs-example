@@ -11,7 +11,7 @@ form {
     flex-flow: column;
     input {
       padding: 0.5em 1em;
-      border: 0.1em solid #bbb;
+      border: 0.1em solid var(--bbb);
       border-radius: 0.3em;
     }
   }

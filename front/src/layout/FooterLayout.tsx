@@ -11,7 +11,7 @@ export default FooterLayout
 
 const s = css`
   height: 3em;
-  background-color: #eee;
+  background-color: var(--eee);
   display: flex;
   align-items: center;
   justify-content: center;

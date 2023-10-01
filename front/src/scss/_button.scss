@@ -7,37 +7,37 @@ button {
   gap: 0.5em;
   text-decoration: inherit;
   color: inherit;
-  background-color: #eee;
-  border: 0.1em solid #eee;
+  background-color: var(--eee);
+  border: 0.1em solid var(--eee);
   border-radius: 0.3em;
 
   &:disabled {
-    color: #aaa;
+    color: var(--aaa);
   }
   &:not(:disabled) {
     cursor: pointer;
 
     &:hover {
-      background-color: #ddd;
-      border-color: #ddd;
+      background-color: var(--ddd);
+      border-color: var(--ddd);
     }
     &:active {
-      background-color: #ccc;
-      border-color: #ccc;
+      background-color: var(--ccc);
+      border-color: var(--ccc);
     }
 
     &.primary {
-      color: #eee;
-      background-color: #333;
-      border-color: #333;
+      color: var(--eee);
+      background-color: var(--333);
+      border-color: var(--333);
 
       &:hover {
-        background-color: #444;
-        border-color: #444;
+        background-color: var(--444);
+        border-color: var(--444);
       }
       &:active {
-        background-color: #555;
-        border-color: #555;
+        background-color: var(--555);
+        border-color: var(--555);
       }
     }
   }

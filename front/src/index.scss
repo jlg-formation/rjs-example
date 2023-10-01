@@ -1,6 +1,8 @@
 @use '../node_modules/normalize.css/normalize.css';
 @use '../node_modules/sanitize.css/sanitize.css';
 
+@use './scss/themes.scss';
+
 @use './scss/_main.scss';
 @use './scss/_button.scss';
 @use './scss/_table.scss';
