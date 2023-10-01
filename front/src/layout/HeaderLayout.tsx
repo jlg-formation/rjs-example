@@ -1,13 +1,12 @@
-import logoLight from '/logo.svg'
-import logoDark from '/logo-dark.svg'
-import s from './HeaderLayout.module.scss'
 import { Link } from 'react-router-dom'
+import { useTheme } from '../hooks/theme'
 import { ThemeSwitch } from '../widgets/ThemeSwitch'
-import { useContext } from 'react'
-import { ThemeContext } from '../contexts/ThemeContext'
+import s from './HeaderLayout.module.scss'
+import logoDark from '/logo-dark.svg'
+import logoLight from '/logo.svg'
 
 const HeaderLayout = () => {
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useTheme()
   const logo = theme === 'dark' ? logoDark : logoLight
   return (
     <header className={s.header}>

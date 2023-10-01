@@ -1,11 +1,16 @@
+import { useEffect, useState } from 'react'
 import { ThemeContext, ThemeValue } from '../contexts/ThemeContext'
-import { useTheme } from '../hooks/theme'
 
 export const ThemeProvider = (props: {
   initial: ThemeValue
   children: string | JSX.Element | JSX.Element[]
 }) => {
-  const { theme, setTheme } = useTheme(props.initial)
+  const [theme, setTheme] = useState<ThemeValue>(props.initial)
+  useEffect(() => {
+    document.body.classList.remove('dark')
+    document.body.classList.remove('light')
+    document.body.classList.add(theme)
+  })
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       {props.children}

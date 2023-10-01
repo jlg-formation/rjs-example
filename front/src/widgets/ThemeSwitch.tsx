@@ -1,10 +1,10 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useContext } from 'react'
-import { ThemeContext, ThemeValue } from '../contexts/ThemeContext'
 import { css } from '@emotion/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { ThemeValue } from '../contexts/ThemeContext'
+import { useTheme } from '../hooks/theme'
 
 export const ThemeSwitch = () => {
-  const { theme, setTheme } = useContext(ThemeContext)
+  const { theme, setTheme } = useTheme()
   const icon = theme === 'dark' ? 'sun' : 'moon'
 
   const handleClick = () => {
