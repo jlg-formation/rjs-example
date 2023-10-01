@@ -1,5 +1,7 @@
+import { useContext } from 'react'
 import RepeatHoc from '../../hoc/RepeatHoc'
 import { Title } from '../../widgets/Title'
+import { ThemeContext } from '../../contexts/ThemeContext'
 
 const Content = RepeatHoc(
   ({ color, index }: { color: string; index: number }) => (
@@ -27,9 +29,11 @@ const Content = RepeatHoc(
 )
 
 const LegalView = () => {
+  const { theme } = useContext(ThemeContext)
   return (
     <main>
       <Title>Mentions Légales</Title>
+      <p>Note: This is the {theme} theme.</p>
 
       <Content color="green" />
     </main>
