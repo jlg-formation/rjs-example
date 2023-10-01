@@ -9,6 +9,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { NewArticle } from '../interfaces/Article'
 import { useArticleStore } from '../store/ArticleStore'
+import { Title } from '../../widgets/Title'
 
 const handleChange =
   <T,>(setState: Dispatch<SetStateAction<T>>) =>
@@ -43,7 +44,7 @@ const AddView = () => {
 
   return (
     <main>
-      <h1>Ajouter un article</h1>
+      <Title>Ajouter un article</Title>
       <form onSubmit={handleSubmit}>
         <label>
           <span>Nom</span>

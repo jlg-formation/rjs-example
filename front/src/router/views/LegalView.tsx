@@ -1,6 +1,7 @@
 import RepeatHoc from '../../hoc/RepeatHoc'
+import { Title } from '../../widgets/Title'
 
-const RepeatXTimes = RepeatHoc(
+const Content = RepeatHoc(
   ({ color, index }: { color: string; index: number }) => (
     <>
       <p>This is paragraph number {index}</p>
@@ -25,12 +26,14 @@ const RepeatXTimes = RepeatHoc(
   8,
 )
 
-const LegalView = () => (
-  <main>
-    <h1>Mentions Légales</h1>
+const LegalView = () => {
+  return (
+    <main>
+      <Title>Mentions Légales</Title>
 
-    <RepeatXTimes color="green" />
-  </main>
-)
+      <Content color="green" />
+    </main>
+  )
+}
 
 export default LegalView
