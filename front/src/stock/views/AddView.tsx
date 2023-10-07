@@ -48,19 +48,27 @@ const AddView = () => {
       <form onSubmit={handleSubmit}>
         <label>
           <span>Nom</span>
-          <input type="text" value={name} onChange={handleChange(setName)} />
+          <input
+            type="text"
+            defaultValue={name}
+            onChange={handleChange(setName)}
+          />
         </label>
         <label>
           <span>Prix</span>
           <input
             type="number"
-            value={price}
+            defaultValue={price}
             onChange={handleChange(setPrice)}
           />
         </label>
         <label>
           <span>Quantité</span>
-          <input type="number" value={qty} onChange={handleChange(setQty)} />
+          <input
+            type="number"
+            defaultValue={qty}
+            onChange={handleChange(setQty)}
+          />
         </label>
         <button className="primary" disabled={isAdding}>
           <FontAwesomeIcon
