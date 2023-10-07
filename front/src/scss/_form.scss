@@ -14,6 +14,11 @@ form {
       border-radius: 0.3em;
       background: var(--fff);
       color: var(--000);
+
+      &.invalid.touched {
+        outline-color: red;
+        border-color: red;
+      }
     }
 
     .error {

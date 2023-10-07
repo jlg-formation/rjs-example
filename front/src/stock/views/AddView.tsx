@@ -5,6 +5,7 @@ import {
   firstError,
   getError,
   getInitialForm,
+  getFormClass,
   isInvalid,
   positive,
   required,
@@ -78,6 +79,7 @@ const AddView = () => {
             value={form.value.name}
             onChange={handleChange()}
             onBlur={handleBlur}
+            className={getFormClass(form, 'name')}
           />
           <span className="error">{getError(form, 'name')}</span>
         </label>
@@ -89,6 +91,7 @@ const AddView = () => {
             value={form.value.price}
             onChange={handleChange(true)}
             onBlur={handleBlur}
+            className={getFormClass(form, 'price')}
           />
           <span className="error">{getError(form, 'price')}</span>
         </label>
@@ -100,6 +103,7 @@ const AddView = () => {
             value={form.value.qty}
             onChange={handleChange(true)}
             onBlur={handleBlur}
+            className={getFormClass(form, 'qty')}
           />
           <span className="error">{getError(form, 'qty')}</span>
         </label>

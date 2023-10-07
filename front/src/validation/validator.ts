@@ -59,3 +59,12 @@ export const getError = <T extends object>(
 ) => {
   return form.touched[key] && form.error[key]
 }
+
+export const getFormClass = <T extends object>(
+  form: FormState<T>,
+  key: keyof T,
+): string => {
+  const touched = form.touched[key] ? 'touched' : ''
+  const invalid = form.error[key] !== '' ? 'invalid' : ''
+  return [touched, invalid].join(' ')
+}
