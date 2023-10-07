@@ -30,6 +30,12 @@ const AddView = () => {
   const { add, refresh } = useArticleStore()
   const navigate = useNavigate()
 
+  const handleBlur = (name: string) => () => {
+    const newForm: FormState<NewArticle> = { ...form }
+    newForm.touched = { ...form.touched, [name]: true }
+    setForm(newForm)
+  }
+
   const handleChange =
     (name: string, isNumber = false) =>
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -64,9 +70,11 @@ const AddView = () => {
         <label>
           <span>Nom</span>
           <input
+            name="name"
             type="text"
             value={form.value.name}
             onChange={handleChange('name')}
+            onBlur={handleBlur('name')}
           />
           <span className="error">{form.error.name}</span>
         </label>
@@ -76,6 +84,7 @@ const AddView = () => {
             type="number"
             value={form.value.price}
             onChange={handleChange('price', true)}
+            onBlur={handleBlur('price')}
           />
           <span className="error">{form.error.price}</span>
         </label>
@@ -85,6 +94,7 @@ const AddView = () => {
             type="number"
             value={form.value.qty}
             onChange={handleChange('qty', true)}
+            onBlur={handleBlur('qty')}
           />
           <span className="error">{form.error.qty}</span>
         </label>
@@ -96,6 +106,7 @@ const AddView = () => {
           <span>Ajouter</span>
         </button>
       </form>
+      <span>{JSON.stringify(form)}</span>
     </main>
   )
 }
