@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import {
   firstError,
   getError,
-  getInitialForm,
-  getFormClass,
   isInvalid,
   positive,
   required,
@@ -15,6 +13,7 @@ import { Title } from '../../widgets/Title'
 import { NewArticle } from '../interfaces/Article'
 import { FormError, FormState } from '../interfaces/FormState'
 import { useArticleStore } from '../store/ArticleStore'
+import { getFormClass, getInitialForm } from '../../form/form'
 
 const validate = (newArticle: NewArticle): FormError<NewArticle> => ({
   name: firstError(required(newArticle.name), tooLong(newArticle.name)),

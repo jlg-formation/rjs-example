@@ -1,8 +1,4 @@
-import {
-  FormError,
-  FormState,
-  FormTouched,
-} from '../stock/interfaces/FormState'
+import { FormState } from '../stock/interfaces/FormState'
 
 export const required = (value: string) => {
   return value === '' ? 'Champ Requis' : ''
@@ -36,35 +32,9 @@ export const isInvalid = <T extends object>(formState: FormState<T>) => {
   return false
 }
 
-export const getInitialForm = <T extends object>(
-  initialValue: T,
-): FormState<T> => {
-  const error = Object.fromEntries(
-    Object.keys(initialValue).map((k) => [k, '']),
-  ) as FormError<T>
-  const touched = Object.fromEntries(
-    Object.keys(initialValue).map((k) => [k, false]),
-  ) as FormTouched<T>
-
-  return {
-    value: initialValue,
-    error,
-    touched,
-  }
-}
-
 export const getError = <T extends object>(
   form: FormState<T>,
   key: keyof T,
 ) => {
   return form.touched[key] && form.error[key]
-}
-
-export const getFormClass = <T extends object>(
-  form: FormState<T>,
-  key: keyof T,
-): string => {
-  const touched = form.touched[key] ? 'touched' : ''
-  const invalid = form.error[key] !== '' ? 'invalid' : ''
-  return [touched, invalid].join(' ')
 }
