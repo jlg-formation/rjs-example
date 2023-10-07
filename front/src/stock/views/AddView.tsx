@@ -3,6 +3,7 @@ import { ChangeEvent, FormEvent, useState, FocusEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   firstError,
+  getError,
   getInitialForm,
   isInvalid,
   positive,
@@ -78,7 +79,7 @@ const AddView = () => {
             onChange={handleChange()}
             onBlur={handleBlur}
           />
-          <span className="error">{form.error.name}</span>
+          <span className="error">{getError(form, 'name')}</span>
         </label>
         <label>
           <span>Prix</span>
@@ -89,7 +90,7 @@ const AddView = () => {
             onChange={handleChange(true)}
             onBlur={handleBlur}
           />
-          <span className="error">{form.error.price}</span>
+          <span className="error">{getError(form, 'price')}</span>
         </label>
         <label>
           <span>Quantité</span>
@@ -100,7 +101,7 @@ const AddView = () => {
             onChange={handleChange(true)}
             onBlur={handleBlur}
           />
-          <span className="error">{form.error.qty}</span>
+          <span className="error">{getError(form, 'qty')}</span>
         </label>
         <button className="primary" disabled={isAdding || isInvalid(form)}>
           <FontAwesomeIcon
@@ -110,7 +111,6 @@ const AddView = () => {
           <span>Ajouter</span>
         </button>
       </form>
-      <span>{JSON.stringify(form)}</span>
     </main>
   )
 }

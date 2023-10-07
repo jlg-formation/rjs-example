@@ -52,3 +52,10 @@ export const getInitialForm = <T extends object>(
     touched,
   }
 }
+
+export const getError = <T extends object>(
+  form: FormState<T>,
+  key: keyof T,
+) => {
+  return form.touched[key] && form.error[key]
+}
