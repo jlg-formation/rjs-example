@@ -16,9 +16,7 @@ const AddView = () => {
       event.preventDefault()
       setIsAdding(true)
       const form = event.target as HTMLFormElement
-      console.log('form: ', form)
       const formData = new FormData(form)
-      console.log('formData: ', formData)
       const object = Object.fromEntries(formData.entries())
 
       const newArticle: NewArticle = {
