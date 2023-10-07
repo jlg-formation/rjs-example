@@ -3,25 +3,20 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Title } from '../../widgets/Title'
 import { NewArticle } from '../interfaces/Article'
-import { FormState } from '../interfaces/FormState'
+import { FormError, FormState } from '../interfaces/FormState'
 import { useArticleStore } from '../store/ArticleStore'
+import {
+  firstError,
+  positive,
+  required,
+  tooLong,
+} from '../../validation/validator'
 
-const validate = (newArticle: NewArticle) => {
-  const result = { name: '', price: '', qty: '' }
-  if (newArticle.name === '') {
-    result.name = 'Champs requis'
-  }
-  if (newArticle.name.length > 10) {
-    result.name = `Trop long (${newArticle.name.length}>10)`
-  }
-  if (newArticle.price < 0) {
-    result.price = 'Prix negatif'
-  }
-  if (newArticle.qty < 0) {
-    result.qty = 'Prix negatif'
-  }
-  return result
-}
+const validate = (newArticle: NewArticle) => ({
+  name: firstError(required(newArticle.name), tooLong(newArticle.name)),
+  price: positive(newArticle.price),
+  qty: positive(newArticle.qty),
+})
 
 const isInvalid = <T extends object>(formState: FormState<T>) => {
   for (const value of Object.values(formState.error)) {
@@ -46,9 +41,13 @@ const AddView = () => {
   const navigate = useNavigate()
 
   const handleChange =
-    (name: string) => (event: ChangeEvent<HTMLInputElement>) => {
-      const newForm = { ...form }
-      newForm.value = { ...form.value, [name]: event.target.value }
+    (name: string, isNumber = false) =>
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const newForm: FormState<NewArticle> = { ...form }
+      newForm.value = {
+        ...form.value,
+        [name]: isNumber ? +event.target.value : event.target.value,
+      }
       newForm.error = validate(newForm.value)
       setForm(newForm)
     }
@@ -57,11 +56,7 @@ const AddView = () => {
     try {
       event.preventDefault()
       setIsAdding(true)
-      const newArticle: NewArticle = {
-        name: form.value.name,
-        price: +form.value.price,
-        qty: +form.value.qty,
-      }
+      const newArticle = form.value
       await add(newArticle)
       await refresh()
       navigate('..')
@@ -90,7 +85,7 @@ const AddView = () => {
           <input
             type="number"
             value={form.value.price}
-            onChange={handleChange('price')}
+            onChange={handleChange('price', true)}
           />
           <span className="error">{form.error.price}</span>
         </label>
@@ -99,7 +94,7 @@ const AddView = () => {
           <input
             type="number"
             value={form.value.qty}
-            onChange={handleChange('qty')}
+            onChange={handleChange('qty', true)}
           />
           <span className="error">{form.error.qty}</span>
         </label>
