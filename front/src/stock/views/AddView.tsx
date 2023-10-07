@@ -1,11 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getFormClass, useForm } from '../../form/form'
+import { useForm } from '../../form/form'
 import {
   firstError,
-  getError,
-  isInvalid,
   positive,
   required,
   tooLong,
@@ -40,7 +38,7 @@ const AddView = () => {
     try {
       event.preventDefault()
       setIsAdding(true)
-      const newArticle = form.value
+      const newArticle = form.formState.value
       await add(newArticle)
       await refresh()
       navigate('..')
@@ -60,38 +58,38 @@ const AddView = () => {
           <input
             name="name"
             type="text"
-            value={form.value.name}
+            value={form.getValue('name')}
             onChange={handleChange()}
             onBlur={handleBlur}
-            className={getFormClass(form, 'name')}
+            className={form.getClassnames('name')}
           />
-          <span className="error">{getError(form, 'name')}</span>
+          <span className="error">{form.getError('name')}</span>
         </label>
         <label>
           <span>Prix</span>
           <input
             name="price"
             type="number"
-            value={form.value.price}
+            value={form.getValue('price')}
             onChange={handleChange(true)}
             onBlur={handleBlur}
-            className={getFormClass(form, 'price')}
+            className={form.getClassnames('price')}
           />
-          <span className="error">{getError(form, 'price')}</span>
+          <span className="error">{form.getError('price')}</span>
         </label>
         <label>
           <span>Quantité</span>
           <input
             name="qty"
             type="number"
-            value={form.value.qty}
+            value={form.getValue('qty')}
             onChange={handleChange(true)}
             onBlur={handleBlur}
-            className={getFormClass(form, 'qty')}
+            className={form.getClassnames('qty')}
           />
-          <span className="error">{getError(form, 'qty')}</span>
+          <span className="error">{form.getError('qty')}</span>
         </label>
-        <button className="primary" disabled={isAdding || isInvalid(form)}>
+        <button className="primary" disabled={isAdding || form.isInvalid()}>
           <FontAwesomeIcon
             icon={isAdding ? 'circle-notch' : 'plus'}
             spin={isAdding}

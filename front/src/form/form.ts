@@ -5,13 +5,30 @@ import {
   FormTouched,
 } from '../stock/interfaces/FormState'
 
-export const getFormClass = <T extends object>(
-  form: FormState<T>,
-  key: keyof T,
-): string => {
-  const touched = form.touched[key] ? 'touched' : ''
-  const invalid = form.error[key] !== '' ? 'invalid' : ''
-  return [touched, invalid].join(' ')
+export class Form<T extends object> {
+  constructor(public formState: FormState<T>) {}
+  getClassnames(key: keyof T) {
+    const touched = this.formState.touched[key] ? 'touched' : ''
+    const invalid = this.formState.error[key] !== '' ? 'invalid' : ''
+    return [touched, invalid].join(' ')
+  }
+
+  getValue(key: keyof T) {
+    return this.formState.value[key]
+  }
+
+  getError(key: keyof T) {
+    return this.formState.touched[key] && this.formState.error[key]
+  }
+
+  isInvalid() {
+    for (const value of Object.values(this.formState.error)) {
+      if (value !== '') {
+        return true
+      }
+    }
+    return false
+  }
 }
 
 export const getInitialForm = <T extends object>(
@@ -35,26 +52,28 @@ export const useForm = <T extends object>(
   initialValues: T,
   validate: (values: T) => FormError<T>,
 ) => {
-  const [form, setForm] = useState(getInitialForm<T>(initialValues))
+  const [formState, setFormState] = useState(getInitialForm<T>(initialValues))
 
   const handleBlur = (event: FocusEvent<HTMLInputElement, Element>) => {
     const name = event.target.name
-    const newForm: FormState<T> = { ...form }
-    newForm.touched = { ...form.touched, [name]: true }
-    setForm(newForm)
+    const newForm: FormState<T> = { ...formState }
+    newForm.touched = { ...formState.touched, [name]: true }
+    setFormState(newForm)
   }
 
   const handleChange =
     (isNumber = false) =>
     (event: ChangeEvent<HTMLInputElement>) => {
       const name = event.target.name
-      const newForm: FormState<T> = { ...form }
+      const newForm: FormState<T> = { ...formState }
       newForm.value = {
-        ...form.value,
+        ...formState.value,
         [name]: isNumber ? +event.target.value : event.target.value,
       }
       newForm.error = validate(newForm.value)
-      setForm(newForm)
+      setFormState(newForm)
     }
-  return { form, setForm, handleBlur, handleChange }
+
+  const form = new Form<T>(formState)
+  return { form, handleBlur, handleChange }
 }
