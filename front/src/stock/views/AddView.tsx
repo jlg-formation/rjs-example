@@ -1,39 +1,29 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Title } from '../../widgets/Title'
-import { NewArticle } from '../interfaces/Article'
-import { FormError, FormState } from '../interfaces/FormState'
-import { useArticleStore } from '../store/ArticleStore'
 import {
   firstError,
+  getInitialForm,
+  isInvalid,
   positive,
   required,
   tooLong,
 } from '../../validation/validator'
+import { Title } from '../../widgets/Title'
+import { NewArticle } from '../interfaces/Article'
+import { FormError, FormState } from '../interfaces/FormState'
+import { useArticleStore } from '../store/ArticleStore'
 
-const validate = (newArticle: NewArticle) => ({
+const validate = (newArticle: NewArticle): FormError<NewArticle> => ({
   name: firstError(required(newArticle.name), tooLong(newArticle.name)),
   price: positive(newArticle.price),
   qty: positive(newArticle.qty),
 })
 
-const isInvalid = <T extends object>(formState: FormState<T>) => {
-  for (const value of Object.values(formState.error)) {
-    if (value !== '') {
-      return true
-    }
-  }
-  return false
-}
-
-const formState: FormState<NewArticle> = {
-  value: { name: 'Truc', price: 0, qty: 0 },
-  error: { name: '', price: '', qty: '' },
-}
-
 const AddView = () => {
-  const [form, setForm] = useState(formState)
+  const [form, setForm] = useState(
+    getInitialForm<NewArticle>({ name: 'Truc', price: 0, qty: 0 }),
+  )
 
   const [isAdding, setIsAdding] = useState(false)
 

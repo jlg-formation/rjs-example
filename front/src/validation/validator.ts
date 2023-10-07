@@ -1,3 +1,5 @@
+import { FormError, FormState } from '../stock/interfaces/FormState'
+
 export const required = (value: string) => {
   return value === '' ? 'Champ Requis' : ''
 }
@@ -19,4 +21,26 @@ export const tooLong = (value: string, maxLength = 10) => {
 
 export const positive = (value: number) => {
   return value < 0 ? 'Must be positive' : ''
+}
+
+export const isInvalid = <T extends object>(formState: FormState<T>) => {
+  for (const value of Object.values(formState.error)) {
+    if (value !== '') {
+      return true
+    }
+  }
+  return false
+}
+
+export const getInitialForm = <T extends object>(
+  initialValue: T,
+): FormState<T> => {
+  const error = Object.fromEntries(
+    Object.keys(initialValue).map((k) => [k, '']),
+  ) as FormError<T>
+
+  return {
+    value: initialValue,
+    error,
+  }
 }
