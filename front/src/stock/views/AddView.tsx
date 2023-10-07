@@ -1,37 +1,31 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  ChangeEvent,
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-  useState,
-} from 'react'
+import { FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Title } from '../../widgets/Title'
 import { NewArticle } from '../interfaces/Article'
 import { useArticleStore } from '../store/ArticleStore'
-import { Title } from '../../widgets/Title'
-
-const handleChange =
-  <T,>(setState: Dispatch<SetStateAction<T>>) =>
-  (event: ChangeEvent<HTMLInputElement>) => {
-    setState(event.target.value as T)
-  }
 
 const AddView = () => {
-  const [name, setName] = useState('Truc')
-  const [price, setPrice] = useState(0)
-  const [qty, setQty] = useState(0)
-
   const [isAdding, setIsAdding] = useState(false)
 
   const { add, refresh } = useArticleStore()
   const navigate = useNavigate()
 
-  const handleSubmit = async (event: FormEvent<HTMLElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault()
       setIsAdding(true)
-      const newArticle: NewArticle = { name, price, qty }
+      const form = event.target as HTMLFormElement
+      console.log('form: ', form)
+      const formData = new FormData(form)
+      console.log('formData: ', formData)
+      const object = Object.fromEntries(formData.entries())
+
+      const newArticle: NewArticle = {
+        name: object.name + '',
+        price: +object.price,
+        qty: +object.qty,
+      }
       await add(newArticle)
       await refresh()
       navigate('..')
@@ -48,27 +42,15 @@ const AddView = () => {
       <form onSubmit={handleSubmit}>
         <label>
           <span>Nom</span>
-          <input
-            type="text"
-            defaultValue={name}
-            onChange={handleChange(setName)}
-          />
+          <input name="name" type="text" defaultValue="Truc" />
         </label>
         <label>
           <span>Prix</span>
-          <input
-            type="number"
-            defaultValue={price}
-            onChange={handleChange(setPrice)}
-          />
+          <input name="price" type="number" defaultValue={0} />
         </label>
         <label>
           <span>Quantité</span>
-          <input
-            type="number"
-            defaultValue={qty}
-            onChange={handleChange(setQty)}
-          />
+          <input name="qty" type="number" defaultValue={0} />
         </label>
         <button className="primary" disabled={isAdding}>
           <FontAwesomeIcon
