@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useState, FocusEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   firstError,
@@ -30,15 +30,17 @@ const AddView = () => {
   const { add, refresh } = useArticleStore()
   const navigate = useNavigate()
 
-  const handleBlur = (name: string) => () => {
+  const handleBlur = (event: FocusEvent<HTMLInputElement, Element>) => {
+    const name = event.target.name
     const newForm: FormState<NewArticle> = { ...form }
     newForm.touched = { ...form.touched, [name]: true }
     setForm(newForm)
   }
 
   const handleChange =
-    (name: string, isNumber = false) =>
+    (isNumber = false) =>
     (event: ChangeEvent<HTMLInputElement>) => {
+      const name = event.target.name
       const newForm: FormState<NewArticle> = { ...form }
       newForm.value = {
         ...form.value,
@@ -73,28 +75,30 @@ const AddView = () => {
             name="name"
             type="text"
             value={form.value.name}
-            onChange={handleChange('name')}
-            onBlur={handleBlur('name')}
+            onChange={handleChange()}
+            onBlur={handleBlur}
           />
           <span className="error">{form.error.name}</span>
         </label>
         <label>
           <span>Prix</span>
           <input
+            name="price"
             type="number"
             value={form.value.price}
-            onChange={handleChange('price', true)}
-            onBlur={handleBlur('price')}
+            onChange={handleChange(true)}
+            onBlur={handleBlur}
           />
           <span className="error">{form.error.price}</span>
         </label>
         <label>
           <span>Quantité</span>
           <input
+            name="qty"
             type="number"
             value={form.value.qty}
-            onChange={handleChange('qty', true)}
-            onBlur={handleBlur('qty')}
+            onChange={handleChange(true)}
+            onBlur={handleBlur}
           />
           <span className="error">{form.error.qty}</span>
         </label>
