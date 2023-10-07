@@ -1,29 +1,37 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { FormEvent, useState } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useState,
+} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Title } from '../../widgets/Title'
 import { NewArticle } from '../interfaces/Article'
 import { useArticleStore } from '../store/ArticleStore'
 
+const handleChange =
+  <T,>(setState: Dispatch<SetStateAction<T>>) =>
+  (event: ChangeEvent<HTMLInputElement>) => {
+    setState(event.target.value as T)
+  }
+
 const AddView = () => {
+  const [name, setName] = useState('Truc')
+  const [price, setPrice] = useState(0)
+  const [qty, setQty] = useState(0)
+
   const [isAdding, setIsAdding] = useState(false)
 
   const { add, refresh } = useArticleStore()
   const navigate = useNavigate()
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLElement>) => {
     try {
       event.preventDefault()
       setIsAdding(true)
-      const form = event.target as HTMLFormElement
-      const formData = new FormData(form)
-      const object = Object.fromEntries(formData.entries())
-
-      const newArticle: NewArticle = {
-        name: object.name + '',
-        price: +object.price,
-        qty: +object.qty,
-      }
+      const newArticle: NewArticle = { name, price, qty }
       await add(newArticle)
       await refresh()
       navigate('..')
@@ -40,15 +48,19 @@ const AddView = () => {
       <form onSubmit={handleSubmit}>
         <label>
           <span>Nom</span>
-          <input name="name" type="text" defaultValue="Truc" />
+          <input type="text" value={name} onChange={handleChange(setName)} />
         </label>
         <label>
           <span>Prix</span>
-          <input name="price" type="number" defaultValue={0} />
+          <input
+            type="number"
+            value={price}
+            onChange={handleChange(setPrice)}
+          />
         </label>
         <label>
           <span>Quantité</span>
-          <input name="qty" type="number" defaultValue={0} />
+          <input type="number" value={qty} onChange={handleChange(setQty)} />
         </label>
         <button className="primary" disabled={isAdding}>
           <FontAwesomeIcon
