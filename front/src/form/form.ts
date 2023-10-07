@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, FocusEvent, ChangeEvent } from 'react'
 import {
   FormError,
   FormState,
@@ -31,7 +31,30 @@ export const getInitialForm = <T extends object>(
   }
 }
 
-export const useForm = <T extends object>(initialValues: T) => {
+export const useForm = <T extends object>(
+  initialValues: T,
+  validate: (values: T) => FormError<T>,
+) => {
   const [form, setForm] = useState(getInitialForm<T>(initialValues))
-  return [form, setForm]
+
+  const handleBlur = (event: FocusEvent<HTMLInputElement, Element>) => {
+    const name = event.target.name
+    const newForm: FormState<T> = { ...form }
+    newForm.touched = { ...form.touched, [name]: true }
+    setForm(newForm)
+  }
+
+  const handleChange =
+    (isNumber = false) =>
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const name = event.target.name
+      const newForm: FormState<T> = { ...form }
+      newForm.value = {
+        ...form.value,
+        [name]: isNumber ? +event.target.value : event.target.value,
+      }
+      newForm.error = validate(newForm.value)
+      setForm(newForm)
+    }
+  return { form, setForm, handleBlur, handleChange }
 }

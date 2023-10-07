@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ChangeEvent, FormEvent, useState, FocusEvent } from 'react'
+import { FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { getFormClass, useForm } from '../../form/form'
 import {
   firstError,
   getError,
@@ -11,9 +12,8 @@ import {
 } from '../../validation/validator'
 import { Title } from '../../widgets/Title'
 import { NewArticle } from '../interfaces/Article'
-import { FormError, FormState } from '../interfaces/FormState'
+import { FormError } from '../interfaces/FormState'
 import { useArticleStore } from '../store/ArticleStore'
-import { getFormClass, getInitialForm } from '../../form/form'
 
 const validate = (newArticle: NewArticle): FormError<NewArticle> => ({
   name: firstError(required(newArticle.name), tooLong(newArticle.name)),
@@ -22,34 +22,19 @@ const validate = (newArticle: NewArticle): FormError<NewArticle> => ({
 })
 
 const AddView = () => {
-  const [form, setForm] = useState(
-    getInitialForm<NewArticle>({ name: 'Truc', price: 0, qty: 0 }),
+  const { form, handleBlur, handleChange } = useForm<NewArticle>(
+    {
+      name: 'Truc',
+      price: 0,
+      qty: 0,
+    },
+    validate,
   )
 
   const [isAdding, setIsAdding] = useState(false)
 
   const { add, refresh } = useArticleStore()
   const navigate = useNavigate()
-
-  const handleBlur = (event: FocusEvent<HTMLInputElement, Element>) => {
-    const name = event.target.name
-    const newForm: FormState<NewArticle> = { ...form }
-    newForm.touched = { ...form.touched, [name]: true }
-    setForm(newForm)
-  }
-
-  const handleChange =
-    (isNumber = false) =>
-    (event: ChangeEvent<HTMLInputElement>) => {
-      const name = event.target.name
-      const newForm: FormState<NewArticle> = { ...form }
-      newForm.value = {
-        ...form.value,
-        [name]: isNumber ? +event.target.value : event.target.value,
-      }
-      newForm.error = validate(newForm.value)
-      setForm(newForm)
-    }
 
   const handleSubmit = async (event: FormEvent<HTMLElement>) => {
     try {
