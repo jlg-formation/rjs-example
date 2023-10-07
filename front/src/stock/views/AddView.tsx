@@ -3,6 +3,7 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Title } from '../../widgets/Title'
 import { NewArticle } from '../interfaces/Article'
+import { FormState } from '../interfaces/FormState'
 import { useArticleStore } from '../store/ArticleStore'
 
 const validate = (newArticle: NewArticle) => {
@@ -22,11 +23,22 @@ const validate = (newArticle: NewArticle) => {
   return result
 }
 
+const isInvalid = <T extends object>(formState: FormState<T>) => {
+  for (const value of Object.values(formState.error)) {
+    if (value !== '') {
+      return true
+    }
+  }
+  return false
+}
+
+const formState: FormState<NewArticle> = {
+  value: { name: 'Truc', price: 0, qty: 0 },
+  error: { name: '', price: '', qty: '' },
+}
+
 const AddView = () => {
-  const [form, setForm] = useState({
-    value: { name: 'Truc', price: 0, qty: 0 },
-    error: { name: '', price: '', qty: '' },
-  })
+  const [form, setForm] = useState(formState)
 
   const [isAdding, setIsAdding] = useState(false)
 
@@ -91,7 +103,7 @@ const AddView = () => {
           />
           <span className="error">{form.error.qty}</span>
         </label>
-        <button className="primary" disabled={isAdding}>
+        <button className="primary" disabled={isAdding || isInvalid(form)}>
           <FontAwesomeIcon
             icon={isAdding ? 'circle-notch' : 'plus'}
             spin={isAdding}
