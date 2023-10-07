@@ -1,7 +1,6 @@
 form {
   display: flex;
   flex-flow: column;
-  gap: 0.5em;
 
   width: 100%;
   max-width: 25em;
@@ -15,6 +14,12 @@ form {
       border-radius: 0.3em;
       background: var(--fff);
       color: var(--000);
+    }
+
+    .error {
+      font-weight: bold;
+      height: 2em;
+      display: flex;
     }
   }
 
