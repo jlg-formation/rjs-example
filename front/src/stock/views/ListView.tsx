@@ -80,18 +80,21 @@ const ListView = () => {
             </tr>
           </thead>
           <tbody>
-            {hasAlreadyLoaded === false && <LoadingRow />}
-            {articles.map((a) => (
-              <tr
-                key={a.id}
-                onClick={handleSelect(a)}
-                className={selectedArticle.has(a) ? 'selected' : ''}
-              >
-                <td className="name">{a.name}</td>
-                <td className="price">{a.price} €</td>
-                <td className="qty">{a.qty}</td>
-              </tr>
-            ))}
+            {!hasAlreadyLoaded ? (
+              <LoadingRow />
+            ) : (
+              articles.map((a) => (
+                <tr
+                  key={a.id}
+                  onClick={handleSelect(a)}
+                  className={selectedArticle.has(a) ? 'selected' : ''}
+                >
+                  <td className="name">{a.name}</td>
+                  <td className="price">{a.price} €</td>
+                  <td className="qty">{a.qty}</td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
