@@ -1,5 +1,6 @@
 import RepeatHoc from '../../hoc/RepeatHoc'
 import { useTheme } from '../../hooks/theme'
+import { DelayedCoucou } from '../../widgets/DelayedCoucou'
 import { Title } from '../../widgets/Title'
 
 const Content = RepeatHoc(
@@ -33,6 +34,7 @@ const LegalView = () => {
     <main>
       <Title>Mentions Légales</Title>
       <p>Note: This is the {theme} theme.</p>
+      <DelayedCoucou />
 
       <Content color="green" />
     </main>
