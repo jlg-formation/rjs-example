@@ -1,12 +1,13 @@
 import { css } from '@emotion/react'
-import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import AsyncIconButton from '../../widgets/AsyncIconButton'
+import { Title } from '../../widgets/Title'
+import { LoadingRow } from '../../widgets/fallback/LoadingRow'
 import { Article } from '../interfaces/Article'
 import { useArticleStore } from '../store/ArticleStore'
-import { Title } from '../../widgets/Title'
 
 const ListView = () => {
   console.log('render ListView')
@@ -79,16 +80,7 @@ const ListView = () => {
             </tr>
           </thead>
           <tbody>
-            {hasAlreadyLoaded === false && (
-              <tr>
-                <td colSpan={3}>
-                  <div className="loading">
-                    <FontAwesomeIcon icon={faCircleNotch} spin={true} />
-                    <span>Chargement...</span>
-                  </div>
-                </td>
-              </tr>
-            )}
+            {hasAlreadyLoaded === false && <LoadingRow />}
             {articles.map((a) => (
               <tr
                 key={a.id}
