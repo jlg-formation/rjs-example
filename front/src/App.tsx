@@ -5,7 +5,7 @@ import { ThemeProvider } from './widgets/ThemeProvider'
 
 function App() {
   return (
-    <ThemeProvider initial="light">
+    <ThemeProvider>
       <RouterProvider router={router} />
     </ThemeProvider>
   )
