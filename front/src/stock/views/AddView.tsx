@@ -62,6 +62,8 @@ const AddView = () => {
             onChange={handleChange()}
             onBlur={handleBlur}
             className={form.getClassnames('name')}
+            autoFocus
+            onFocus={(event) => event.target.select()}
           />
           <span className="error">{form.getError('name')}</span>
         </label>
