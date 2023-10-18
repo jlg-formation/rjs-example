@@ -29,10 +29,6 @@ function BodyLayout() {
       }}
     >
       {displayOutlet}
-      {/* <Routes location={displayLocation}>
-        <Route path="/" element={<HomeView />} />
-        <Route path="/legal" element={<LegalView />} />
-      </Routes> */}
     </div>
   )
 }
