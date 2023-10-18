@@ -1,6 +1,7 @@
 export interface FormState<T extends object> {
   value: T
   error: FormError<T>
+  asyncError: FormError<T>
   touched: FormTouched<T>
 }
 

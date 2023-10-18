@@ -3,6 +3,7 @@ import { FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from '../../form/form'
 import {
+  blackList,
   firstError,
   positive,
   required,
@@ -19,6 +20,17 @@ const validate = (newArticle: NewArticle): FormError<NewArticle> => ({
   qty: positive(newArticle.qty),
 })
 
+const asyncValidate = async (
+  newArticle: NewArticle,
+): Promise<FormError<NewArticle>> => {
+  console.log('start async validate', newArticle)
+  return {
+    name: await blackList(['bad', 'hello'])(newArticle.name),
+    price: '',
+    qty: '',
+  }
+}
+
 const AddView = () => {
   const { form, handleBlur, handleChange } = useForm<NewArticle>(
     {
@@ -27,6 +39,7 @@ const AddView = () => {
       qty: 0,
     },
     validate,
+    asyncValidate,
   )
 
   const [isAdding, setIsAdding] = useState(false)

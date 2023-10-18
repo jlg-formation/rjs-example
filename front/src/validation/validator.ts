@@ -1,3 +1,5 @@
+import { sleep } from '../misc'
+
 export const required = (value: string) => {
   return value === '' ? 'Champ Requis' : ''
 }
@@ -19,4 +21,9 @@ export const tooLong = (value: string, maxLength = 10) => {
 
 export const positive = (value: number) => {
   return value < 0 ? 'Must be positive' : ''
+}
+
+export const blackList = (list: unknown[]) => async (value: unknown) => {
+  await sleep(2000)
+  return list.includes(value) ? 'Forbidden value' : ''
 }
