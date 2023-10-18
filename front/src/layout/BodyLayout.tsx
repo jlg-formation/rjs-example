@@ -1,10 +1,40 @@
-import { Component, ReactNode } from 'react'
-import { Outlet } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useLocation, useOutlet } from 'react-router-dom'
 
-class BodyLayout extends Component {
-  override render(): ReactNode {
-    return <Outlet />
-  }
+function BodyLayout() {
+  const location = useLocation()
+  const outlet = useOutlet()
+
+  const [displayOutlet, setDisplayOutlet] = useState(outlet)
+
+  const [displayLocation, setDisplayLocation] = useState(location)
+  const [transitionStage, setTransistionStage] = useState('fadeIn')
+
+  useEffect(() => {
+    if (location !== displayLocation) {
+      setTransistionStage('fadeOut')
+    } else {
+      setDisplayOutlet(outlet)
+    }
+  }, [location, displayLocation])
+
+  return (
+    <div
+      className={`main ${transitionStage}`}
+      onAnimationEnd={() => {
+        if (transitionStage === 'fadeOut') {
+          setTransistionStage('fadeIn')
+          setDisplayLocation(location)
+        }
+      }}
+    >
+      {displayOutlet}
+      {/* <Routes location={displayLocation}>
+        <Route path="/" element={<HomeView />} />
+        <Route path="/legal" element={<LegalView />} />
+      </Routes> */}
+    </div>
+  )
 }
 
 export default BodyLayout
