@@ -4,6 +4,7 @@ import { ThemeSwitch } from '../widgets/ThemeSwitch'
 import s from './HeaderLayout.module.scss'
 import logoDark from '/logo-dark.svg'
 import logoLight from '/logo.svg'
+import ToggleLanguage from '../i18n/ToggleLanguage'
 
 const HeaderLayout = () => {
   const { theme } = useTheme()
@@ -14,7 +15,10 @@ const HeaderLayout = () => {
         <img src={logo} alt="Logo" />
         <span>Gestion Stock</span>
       </Link>
-      <ThemeSwitch />
+      <div>
+        <ThemeSwitch />
+        <ToggleLanguage />
+      </div>
     </header>
   )
 }

@@ -13,7 +13,7 @@ const resources = {
   },
   fr: {
     translation: {
-      'Gérer efficacement votre stock !': 'xxGérer efficacement votre stock !',
+      'Gérer efficacement votre stock !': 'Gérer efficacement votre stock !',
     },
   },
 }
