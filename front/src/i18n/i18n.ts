@@ -1,5 +1,7 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
+import home from './namespaces/en/home.json'
+import common from './namespaces/en/common.json'
 
 // the translations
 // (tip move them in a JSON file and import them,
@@ -13,7 +15,7 @@ const resources = {
   },
   fr: {
     translation: {
-      'Gérer efficacement votre stock !': 'Gérer efficacement votre stock !',
+      'Gérer efficacement votre stock !': 'qqGérer efficacement votre stock !',
     },
   },
 }
@@ -30,5 +32,8 @@ i18n
       escapeValue: false, // react already safes from xss
     },
   })
+
+i18n.addResourceBundle('en', 'home', home)
+i18n.addResourceBundle('en', 'common', common)
 
 export default i18n

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { Translation } from 'react-i18next'
 
 const HomeView = () => (
-  <Translation>
+  <Translation ns="home">
     {(t) => (
       <main css={s}>
         <h1>{t('Gérer efficacement votre stock !')}</h1>

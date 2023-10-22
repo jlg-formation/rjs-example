@@ -1,3 +1,4 @@
+import { Translation } from 'react-i18next'
 import RepeatHoc from '../../hoc/RepeatHoc'
 import { useTheme } from '../../hooks/theme'
 import { DelayedCoucou } from '../../widgets/DelayedCoucou'
@@ -31,13 +32,17 @@ const Content = RepeatHoc(
 const LegalView = () => {
   const { theme } = useTheme()
   return (
-    <main>
-      <Title>Mentions Légales</Title>
-      <p>Note: This is the {theme} theme.</p>
-      <DelayedCoucou />
+    <Translation ns={['common']}>
+      {(t) => (
+        <main>
+          <Title>{t('Mentions Légales')}</Title>
+          <p>{t('Note : ceci est le thème {{theme}}.', { theme })}</p>
+          <DelayedCoucou />
 
-      <Content color="green" />
-    </main>
+          <Content color="green" />
+        </main>
+      )}
+    </Translation>
   )
 }
 
