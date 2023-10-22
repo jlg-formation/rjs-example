@@ -1,22 +1,17 @@
-import { useEffect, useState } from 'react'
 import { css } from '@emotion/react'
-import i18n from './i18n'
+import { useTranslation } from 'react-i18next'
 
 const ToggleLanguage = () => {
-  const [language, setLanguage] = useState('en')
+  const { i18n } = useTranslation('home')
 
   const handleToggle = () => {
-    const newLanguage = language === 'en' ? 'fr' : 'en'
-    setLanguage(newLanguage)
+    const newLanguage = i18n.language === 'en' ? 'fr' : 'en'
+    i18n.changeLanguage(newLanguage)
   }
-
-  useEffect(() => {
-    i18n.changeLanguage(language)
-  }, [language])
 
   return (
     <button css={s} onClick={handleToggle}>
-      {language}
+      {i18n.language}
     </button>
   )
 }
