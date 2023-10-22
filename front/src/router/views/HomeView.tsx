@@ -2,10 +2,9 @@ import { css } from '@emotion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
 
-import { useTranslation } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
-const HomeView = () => {
-  const { t } = useTranslation()
+const HomeView = ({ t }: { t: (str: string) => string }) => {
   return (
     <main css={s}>
       <h1>{t('Gérer efficacement votre stock !')}</h1>
@@ -17,7 +16,7 @@ const HomeView = () => {
   )
 }
 
-export default HomeView
+export default withTranslation()(HomeView)
 
 const s = css`
   justify-content: center;
