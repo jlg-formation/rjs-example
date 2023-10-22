@@ -7,7 +7,13 @@ import { Title } from '../../widgets/Title'
 const Content = RepeatHoc(
   ({ color, index }: { color: string; index: number }) => (
     <>
-      <p>This is paragraph number {index}</p>
+      <Translation ns={['legal', 'common']}>
+        {(t) => (
+          <p>
+            {t('Ceci est le paragraphe')} {index}
+          </p>
+        )}
+      </Translation>
       <p style={{ color: color }}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores dolorem
         quam quia minima velit accusamus earum, sit unde quidem molestiae

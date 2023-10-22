@@ -2,6 +2,7 @@ import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import home from './namespaces/en/home.json'
 import common from './namespaces/en/common.json'
+import legal from './namespaces/en/legal.json'
 
 // the translations
 // (tip move them in a JSON file and import them,
@@ -35,5 +36,6 @@ i18n
 
 i18n.addResourceBundle('en', 'home', home)
 i18n.addResourceBundle('en', 'common', common)
+i18n.addResourceBundle('en', 'legal', legal)
 
 export default i18n
