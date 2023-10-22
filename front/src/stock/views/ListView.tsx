@@ -8,6 +8,7 @@ import { Title } from '../../widgets/Title'
 import { LoadingRow } from '../../widgets/fallback/LoadingRow'
 import { Article } from '../interfaces/Article'
 import { useArticleStore } from '../store/ArticleStore'
+import { Translation } from 'react-i18next'
 
 const ListView = () => {
   console.log('render ListView')
@@ -48,57 +49,61 @@ const ListView = () => {
   )
 
   return (
-    <main css={s}>
-      <Title>Liste des articles</Title>
-      <div className="content">
-        <nav>
-          <AsyncIconButton
-            title="Rafraîchir"
-            asyncCallback={handleRefresh}
-            icon="rotate-forward"
-          />
-          <Link to="add" className="button" title="Ajouter">
-            <FontAwesomeIcon icon={faPlus} />
-          </Link>
-          {selectedArticle.size > 0 && (
-            <AsyncIconButton
-              title="Supprimer"
-              asyncCallback={handleRemove}
-              icon="trash-alt"
-            />
-          )}
-        </nav>
-        <div className="error">
-          {loadingError && 'Erreur lors du chargement'}
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th className="name">Nom</th>
-              <th className="price">Prix</th>
-              <th className="qty">Quantité</th>
-            </tr>
-          </thead>
-          <tbody>
-            {!hasAlreadyLoaded ? (
-              <LoadingRow />
-            ) : (
-              articles.map((a) => (
-                <tr
-                  key={a.id}
-                  onClick={handleSelect(a)}
-                  className={selectedArticle.has(a) ? 'selected' : ''}
-                >
-                  <td className="name">{a.name}</td>
-                  <td className="price">{a.price} €</td>
-                  <td className="qty">{a.qty}</td>
+    <Translation ns="articles">
+      {(t) => (
+        <main css={s}>
+          <Title>{t('Liste des articles')}</Title>
+          <div className="content">
+            <nav>
+              <AsyncIconButton
+                title={t('Rafraîchir')}
+                asyncCallback={handleRefresh}
+                icon="rotate-forward"
+              />
+              <Link to="add" className="button" title={t('Ajouter')}>
+                <FontAwesomeIcon icon={faPlus} />
+              </Link>
+              {selectedArticle.size > 0 && (
+                <AsyncIconButton
+                  title={t('Supprimer')}
+                  asyncCallback={handleRemove}
+                  icon="trash-alt"
+                />
+              )}
+            </nav>
+            <div className="error">
+              {loadingError && 'Erreur lors du chargement'}
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th className="name">Nom</th>
+                  <th className="price">Prix</th>
+                  <th className="qty">Quantité</th>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
-    </main>
+              </thead>
+              <tbody>
+                {!hasAlreadyLoaded ? (
+                  <LoadingRow />
+                ) : (
+                  articles.map((a) => (
+                    <tr
+                      key={a.id}
+                      onClick={handleSelect(a)}
+                      className={selectedArticle.has(a) ? 'selected' : ''}
+                    >
+                      <td className="name">{a.name}</td>
+                      <td className="price">{a.price} €</td>
+                      <td className="qty">{a.qty}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        </main>
+      )}
+    </Translation>
   )
 }
 

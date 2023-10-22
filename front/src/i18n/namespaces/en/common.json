@@ -1,5 +1,7 @@
 {
   "Mentions Légales": "Legal",
   "Note : ceci est le thème {{theme}}.": "Note: this is the {{theme}} theme.",
-  "Ajouter": "Add"
+  "Ajouter": "Add",
+  "Supprimer": "Remove",
+  "Rafraîchir": "Refresh"
 }
