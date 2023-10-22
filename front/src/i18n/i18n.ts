@@ -3,21 +3,17 @@ import { initReactI18next } from 'react-i18next'
 import home from './namespaces/en/home.json'
 import common from './namespaces/en/common.json'
 import legal from './namespaces/en/legal.json'
+import articles from './namespaces/en/articles.json'
 
 // the translations
 // (tip move them in a JSON file and import them,
 // or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)
 const resources = {
   en: {
-    translation: {
-      'Gérer efficacement votre stock !': 'Manage your assets with efficiency!',
-      'Voir le stock': 'See your assets',
-    },
-  },
-  fr: {
-    translation: {
-      'Gérer efficacement votre stock !': 'qqGérer efficacement votre stock !',
-    },
+    articles,
+    home,
+    common,
+    legal,
   },
 }
 
@@ -32,10 +28,7 @@ i18n
     interpolation: {
       escapeValue: false, // react already safes from xss
     },
+    fallbackNS: 'common',
   })
-
-i18n.addResourceBundle('en', 'home', home)
-i18n.addResourceBundle('en', 'common', common)
-i18n.addResourceBundle('en', 'legal', legal)
 
 export default i18n
