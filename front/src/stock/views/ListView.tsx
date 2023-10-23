@@ -114,7 +114,7 @@ const ListView = () => {
 export default ListView
 
 const s = css`
-  div.content {
+  > div.content {
     display: flex;
     flex-flow: column;
     gap: 1em;
@@ -125,21 +125,21 @@ const s = css`
     }
   }
 
-  table {
+  > table {
     .price,
     .qty {
       text-align: right;
     }
   }
 
-  div.loading {
+  td > div.loading {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.5em;
   }
 
-  div.error {
+  > div.error {
     height: 1em;
     display: flex;
     align-items: center;
