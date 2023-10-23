@@ -1,22 +1,8 @@
 const fs = require("node:fs");
+const util = require("node:util");
 
-const promisfy =
-  (func) =>
-  (...args) => {
-    return new Promise((resolve, reject) => {
-      // @ts-ignore
-      func(...args, (err, result) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-        resolve(result);
-      });
-    });
-  };
-
-const readdir = promisfy(fs.readdir);
-const readFile = promisfy(fs.readFile);
+const readdir = util.promisify(fs.readdir);
+const readFile = util.promisify(fs.readFile);
 
 readdir(".")
   .then((files) => {
