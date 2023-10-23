@@ -20,5 +20,11 @@
     "react/react-in-jsx-scope": "off",
     "react/no-unknown-property": ["error", { "ignore": ["css"] }],
     "no-else-return": "error"
+  },
+  "ignorePatterns": ["dist", "node_modules"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
