@@ -1,5 +1,6 @@
 import { Router, Request, Response, json } from "express";
 import { Article, NewArticle } from "./interfaces/article";
+import { User } from "./interfaces/User";
 
 export const generateId = (): string => {
   return Date.now() + "_" + Math.round(Math.random() * 1e12);
@@ -41,6 +42,18 @@ app.delete("/articles/:id", (req, res) => {
   const id = req.params.id;
   articles = articles.filter((a) => a.id !== id);
   res.status(204).end();
+});
+
+app.post("/connect", (req, res) => {
+  const { login, password } = req.body;
+  console.log("login: ", login);
+  console.log("password: ", password);
+  if (login === "jc") {
+    const user: User = { displayName: "Jean-Claude VAN DAMNE" };
+    res.json(user);
+    return;
+  }
+  res.status(401).end();
 });
 
 export default app;

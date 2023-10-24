@@ -44,7 +44,19 @@ class API {
 
   async connect(login: string, password: string): Promise<User> {
     console.log('connect', login, password)
-    return { displayName: 'Jean-Claude VAN DAMNE' }
+    await sleep(300)
+    const response = await fetch('/api/connect', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ login, password }),
+    })
+    if (response.status >= 400) {
+      throw new Error('Technical Error')
+    }
+    const user = await response.json()
+    return user
   }
 }
 
