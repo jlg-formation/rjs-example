@@ -1,8 +1,25 @@
+import { FormEvent, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 const LoginView = () => {
+  // const { login } = useContext(UserContext)
+  const navigate = useNavigate()
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    try {
+      event.preventDefault()
+      console.log('submit')
+      // await login('asdf', 'asdfasdfasdf')
+      navigate('/')
+    } catch (err) {
+      console.log('err: ', err)
+    }
+  }
+
   return (
     <main>
       <h1>Login</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>
           <span>Login</span>
           <input type="text" name="login" />
