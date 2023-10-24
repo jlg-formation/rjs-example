@@ -1,15 +1,19 @@
-import { useEffect } from 'react'
+import { createPortal } from 'react-dom'
 
-const prefix = 'Gestion Stock'
+const HeadTitle = (props: { children: string; onlyHead?: boolean }) => {
+  return createPortal(
+    ` : ${props.children}`,
+    document.querySelector('title') as HTMLElement,
+  )
+}
 
 const Title = (props: { children: string; onlyHead?: boolean }) => {
-  useEffect(() => {
-    document.title = `${prefix}: ${props.children}`
-    return () => {
-      document.title = prefix
-    }
-  })
-  return <>{props.onlyHead || <h1>{props.children}</h1>}</>
+  return (
+    <>
+      <HeadTitle {...props} />
+      {props.onlyHead || <h1>{props.children}</h1>}
+    </>
+  )
 }
 
 export default Title
