@@ -1,6 +1,7 @@
 import { RouteObject } from 'react-router-dom'
 import LoginView from './views/LoginView'
 import UserView from './views/UserView'
+import Authenticated from './Authenticated'
 
 export const userRouterObject = (path: string): RouteObject => {
   return {
@@ -8,7 +9,11 @@ export const userRouterObject = (path: string): RouteObject => {
     children: [
       {
         path: '',
-        element: <UserView />,
+        element: (
+          <Authenticated>
+            <UserView />
+          </Authenticated>
+        ),
       },
       {
         path: 'login',

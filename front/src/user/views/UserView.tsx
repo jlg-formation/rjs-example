@@ -1,12 +1,11 @@
 import { useNavigate } from 'react-router'
 import { useUser } from '../UserContext'
-import AuthenticationErrorView from './AuthenticationErrorView'
 
 const UserView = () => {
   const navigate = useNavigate()
   const { user, logout } = useUser()
   if (user === undefined) {
-    return <AuthenticationErrorView />
+    throw new Error('oups')
   }
 
   const handleLogout = async () => {
