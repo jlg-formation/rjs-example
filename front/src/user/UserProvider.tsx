@@ -16,6 +16,11 @@ export const UserProvider = (props: {
       console.log('ca y est je suis loggué')
       setUser({ displayName: 'Eric Durand' })
     },
+    logout: async () => {
+      console.log('logout...')
+      await sleep(2000)
+      setUser(undefined)
+    },
   }
   return (
     <UserContext.Provider value={defaultValue}>

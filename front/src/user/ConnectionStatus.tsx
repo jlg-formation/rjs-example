@@ -9,7 +9,7 @@ const ConnectionStatus = (props: { user: User | undefined }) => {
           Se connecter
         </Link>
       ) : (
-        <span>{props.user.displayName}</span>
+        <Link to="/user">{props.user.displayName}</Link>
       )}
     </div>
   )
