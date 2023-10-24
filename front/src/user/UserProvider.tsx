@@ -10,11 +10,12 @@ export const UserProvider = (props: {
 
   const defaultValue: UserContextType = {
     user: user,
-    login: async () => {
+    login: async (loginInput: string, password: string) => {
+      console.log('password: ', password)
       console.log('je me loggue')
       await sleep(2000)
       console.log('ca y est je suis loggué')
-      setUser({ displayName: 'Eric Durand' })
+      setUser({ displayName: loginInput })
     },
     logout: async () => {
       console.log('logout...')
