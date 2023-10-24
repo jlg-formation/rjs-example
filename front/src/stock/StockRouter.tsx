@@ -1,6 +1,7 @@
 import { RouteObject } from 'react-router-dom'
 import AddView from './views/AddView'
 import ListView from './views/ListView'
+import Authenticated from '../user/Authenticated'
 
 export const stockRouterObject = (path: string): RouteObject => {
   return {
@@ -8,11 +9,19 @@ export const stockRouterObject = (path: string): RouteObject => {
     children: [
       {
         path: '',
-        element: <ListView />,
+        element: (
+          <Authenticated>
+            <ListView />
+          </Authenticated>
+        ),
       },
       {
         path: 'add',
-        element: <AddView />,
+        element: (
+          <Authenticated>
+            <AddView />
+          </Authenticated>
+        ),
       },
     ],
   }
