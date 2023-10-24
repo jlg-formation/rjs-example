@@ -1,9 +1,9 @@
-import { FormEvent, useContext } from 'react'
+import { FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { UserContext } from '../UserContext'
+import { useUser } from '../UserContext'
 
 const LoginView = () => {
-  const { login } = useContext(UserContext)
+  const { login } = useUser()
   const navigate = useNavigate()
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {

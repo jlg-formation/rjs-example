@@ -1,9 +1,8 @@
-import { useContext } from 'react'
 import ConnectionStatus from '../user/ConnectionStatus'
-import { UserContext } from '../user/UserContext'
+import { useUser } from '../user/UserContext'
 
 const UtilityLayout = () => {
-  const { user } = useContext(UserContext)
+  const { user } = useUser()
   return (
     <div>
       <ConnectionStatus user={user} />

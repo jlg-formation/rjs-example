@@ -1,4 +1,4 @@
-import { createContext } from 'react'
+import { createContext, useContext } from 'react'
 import { User } from './interfaces/User'
 
 export interface UserContextType {
@@ -10,3 +10,7 @@ export const UserContext = createContext<UserContextType>({
   user: undefined,
   login: async () => {},
 })
+
+export const useUser = (): UserContextType => {
+  return useContext(UserContext)
+}
