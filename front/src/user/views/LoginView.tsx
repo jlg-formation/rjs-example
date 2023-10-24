@@ -6,14 +6,18 @@ const LoginView = () => {
   const { login } = useUser()
   const navigate = useNavigate()
 
-  const [loginInput, setLoginInput] = useState('qqq')
-  const [password, setPassword] = useState('xxx')
-
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault()
       console.log('submit')
-      await login(loginInput, password)
+      const form = event.target as HTMLFormElement
+      const formData = new FormData(form)
+      const object = Object.fromEntries(formData.entries()) as {
+        login: string
+        password: string
+      }
+      console.log('object: ', object)
+      await login(object.login, object.password)
       navigate('/')
     } catch (err) {
       console.log('err: ', err)
@@ -26,30 +30,13 @@ const LoginView = () => {
       <form onSubmit={handleSubmit}>
         <label>
           <span>Login</span>
-          <input
-            type="text"
-            name="login"
-            onChange={(event) => {
-              setLoginInput(event.target.value)
-            }}
-            defaultValue={loginInput}
-          />
+          <input type="text" name="login" defaultValue="qqq" />
         </label>
         <label>
           <span>Password</span>
-          <input
-            type="password"
-            name="password"
-            onChange={(event) => {
-              setPassword(event.target.value)
-            }}
-            defaultValue={password}
-          />
+          <input type="password" name="password" />
         </label>
         <button className="primary">Se connecter</button>
-        <span>
-          {loginInput} / {password}
-        </span>
       </form>
     </main>
   )
