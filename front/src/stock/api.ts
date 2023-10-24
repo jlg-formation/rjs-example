@@ -1,4 +1,5 @@
 import { sleep } from '../misc'
+import { User } from '../user/interfaces/User'
 import { Article, NewArticle } from './interfaces/Article'
 
 const url = '/api/articles'
@@ -39,6 +40,11 @@ class API {
     }
     const articles: Article[] = await response.json()
     return articles
+  }
+
+  async connect(login: string, password: string): Promise<User> {
+    console.log('connect', login, password)
+    return { displayName: 'Jean-Claude VAN DAMNE' }
   }
 }
 
