@@ -19,7 +19,8 @@
     "eqeqeq": "error",
     "react/react-in-jsx-scope": "off",
     "react/no-unknown-property": ["error", { "ignore": ["css"] }],
-    "no-else-return": "error"
+    "no-else-return": "error",
+    "@typescript-eslint/no-empty-function": "off"
   },
   "ignorePatterns": ["dist", "node_modules"],
   "settings": {
