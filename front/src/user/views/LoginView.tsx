@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { useUser } from '../UserContext'
 
 const LoginView = () => {
-  const { login } = useUser()
+  const { login, referrer } = useUser()
+  console.log('referrer: ', referrer)
   const navigate = useNavigate()
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -18,7 +19,9 @@ const LoginView = () => {
       }
       console.log('object: ', object)
       await login(object.login, object.password)
-      navigate('/')
+      setTimeout(() => {
+        navigate(referrer)
+      }, 0)
     } catch (err) {
       console.log('err: ', err)
     }
