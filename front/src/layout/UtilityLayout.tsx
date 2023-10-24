@@ -2,7 +2,7 @@ import ConnectionStatus from '../user/ConnectionStatus'
 
 const UtilityLayout = () => (
   <div>
-    <ConnectionStatus />
+    <ConnectionStatus user={undefined} />
   </div>
 )
 
