@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { api } from '../stock/api'
 import { UserContext, UserContextType } from './UserContext'
 import { User } from './interfaces/User'
+import { userApi } from './api'
 
 export const UserProvider = (props: {
   children: string | JSX.Element | JSX.Element[]
@@ -16,13 +16,13 @@ export const UserProvider = (props: {
     login: async (loginInput: string, password: string) => {
       console.log('password: ', password)
       console.log('je me loggue')
-      const user = await api.connect(loginInput, password)
+      const user = await userApi.connect(loginInput, password)
       console.log('ca y est je suis loggué')
       setUser(user)
     },
     logout: async () => {
       console.log('logout...')
-      await api.disconnect()
+      await userApi.disconnect()
       setUser(undefined)
     },
   }
