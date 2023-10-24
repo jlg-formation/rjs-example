@@ -1,4 +1,5 @@
 import { sleep } from '../misc'
+import { AuthenticationError } from '../user/AuthenticationError'
 import { User } from '../user/interfaces/User'
 import { Article, NewArticle } from './interfaces/Article'
 
@@ -52,6 +53,9 @@ class API {
       },
       body: JSON.stringify({ login, password }),
     })
+    if (response.status === 401) {
+      throw new AuthenticationError()
+    }
     if (response.status >= 400) {
       throw new Error('Technical Error')
     }
