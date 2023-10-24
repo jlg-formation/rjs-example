@@ -56,4 +56,8 @@ app.post("/connect", (req, res) => {
   res.status(401).end();
 });
 
+app.post("/disconnect", (req, res) => {
+  res.end();
+});
+
 export default app;

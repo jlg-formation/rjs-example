@@ -62,6 +62,21 @@ class API {
     const user = await response.json()
     return user
   }
+
+  async disconnect(): Promise<void> {
+    try {
+      console.log('disconnect')
+      await sleep(300)
+      const response = await fetch('/api/disconnect', {
+        method: 'POST',
+      })
+      if (response.status >= 400) {
+        throw new Error('Technical Error')
+      }
+    } catch (err) {
+      throw new Error('Technical Error')
+    }
+  }
 }
 
 export const api = new API()

@@ -1,8 +1,7 @@
 import { useState } from 'react'
-import { sleep } from '../misc'
+import { api } from '../stock/api'
 import { UserContext, UserContextType } from './UserContext'
 import { User } from './interfaces/User'
-import { api } from '../stock/api'
 
 export const UserProvider = (props: {
   children: string | JSX.Element | JSX.Element[]
@@ -23,7 +22,7 @@ export const UserProvider = (props: {
     },
     logout: async () => {
       console.log('logout...')
-      await sleep(300)
+      await api.disconnect()
       setUser(undefined)
     },
   }
