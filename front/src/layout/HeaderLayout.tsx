@@ -1,6 +1,7 @@
-import logo from '/logo.svg'
-import s from './HeaderLayout.module.scss'
 import { Link } from 'react-router-dom'
+import s from './HeaderLayout.module.scss'
+import UtilityLayout from './UtilityLayout'
+import logo from '/logo.svg'
 
 const HeaderLayout = () => (
   <header className={s.header}>
@@ -8,6 +9,7 @@ const HeaderLayout = () => (
       <img src={logo} alt="Logo" />
       <span>Gestion Stock</span>
     </Link>
+    <UtilityLayout />
   </header>
 )
 
