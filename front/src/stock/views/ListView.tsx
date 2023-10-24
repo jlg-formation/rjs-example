@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 import AsyncIconButton from '../../widgets/AsyncIconButton'
 import { Article } from '../interfaces/Article'
 import { useArticleStore } from '../store/ArticleStore'
+import Title from '../../widgets/Title'
 
 const ListView = () => {
   console.log('render ListView')
@@ -52,7 +53,7 @@ const ListView = () => {
 
   return (
     <main css={s}>
-      <h1>Liste des articles</h1>
+      <Title>Liste des articles</Title>
       <div className="content">
         <nav>
           <AsyncIconButton

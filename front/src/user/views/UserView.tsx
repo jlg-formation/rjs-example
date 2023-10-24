@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router'
 import { useUser } from '../UserContext'
+import Title from '../../widgets/Title'
 
 const UserView = () => {
   const navigate = useNavigate()
@@ -14,6 +15,7 @@ const UserView = () => {
   }
   return (
     <main>
+      <Title onlyHead>User info</Title>
       <h1>Hello {user.displayName}</h1>
       <button onClick={handleLogout}>Se déconnecter</button>
     </main>

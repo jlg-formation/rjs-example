@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '../UserContext'
 import { AuthenticationError } from '../AuthenticationError'
+import Title from '../../widgets/Title'
 
 const LoginView = () => {
   const { login, referrer } = useUser()
@@ -37,7 +38,7 @@ const LoginView = () => {
 
   return (
     <main>
-      <h1>Login</h1>
+      <Title>Login</Title>
       <form onSubmit={handleSubmit}>
         <label>
           <span>Login</span>
