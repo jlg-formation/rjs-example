@@ -3,6 +3,7 @@ import VerticalLayout from '../layout/VerticalLayout'
 import { stockRouterObject } from '../stock/StockRouter'
 import HomeView from './views/HomeView'
 import LegalView from './views/LegalView'
+import { userRouterObject } from '../user/UserRouter'
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ export const router = createBrowserRouter([
         element: <LegalView />,
       },
       stockRouterObject('stock'),
+      userRouterObject('user'),
     ],
   },
 ])
