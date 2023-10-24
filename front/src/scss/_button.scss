@@ -42,3 +42,21 @@ button {
     }
   }
 }
+
+header {
+  button,
+  a.button {
+    &:not(:disabled) {
+      border-color: #ddd;
+      background: #ddd;
+      &:hover {
+        border-color: #ccc;
+        background: #ccc;
+      }
+      &:active {
+        border-color: #bbb;
+        background: #bbb;
+      }
+    }
+  }
+}
