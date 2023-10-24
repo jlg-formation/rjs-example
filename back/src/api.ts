@@ -49,7 +49,18 @@ app.post("/connect", (req, res) => {
   console.log("login: ", login);
   console.log("password: ", password);
   if (login === "jc") {
-    const user: User = { displayName: "Jean-Claude VAN DAMNE" };
+    const user: User = {
+      displayName: "Jean-Claude VAN DAMNE",
+      profile: "user",
+    };
+    res.json(user);
+    return;
+  }
+  if (login === "jlouis") {
+    const user: User = {
+      displayName: "Jean-Louis GUENEGO",
+      profile: "admin",
+    };
     res.json(user);
     return;
   }

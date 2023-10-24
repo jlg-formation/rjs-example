@@ -1,3 +1,4 @@
 export interface User {
-  displayName: string
+  displayName: string;
+  profile: "admin" | "user";
 }
