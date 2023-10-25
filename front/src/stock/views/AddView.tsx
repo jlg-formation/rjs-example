@@ -15,6 +15,20 @@ import Title from '../../widgets/Title'
 import { NewArticle } from '../interfaces/Article'
 import { useArticleStore } from '../store/ArticleStore'
 
+const validate = (values: NewArticle) => {
+  console.log('start validate: ', values)
+  const errors = cleanError({
+    name: first(
+      required(values.name),
+      maxLength(values.name, 10),
+      minLength(values.name, 3),
+    ),
+    price: required(values.price),
+    qty: required(values.qty),
+  })
+  return errors
+}
+
 const AddView = () => {
   const [errorMsg, setErrorMsg] = useState('')
 
@@ -27,20 +41,9 @@ const AddView = () => {
     <main>
       <Title>Ajouter un article</Title>
       <Formik
+        initialErrors={validate(newArticle)}
         initialValues={newArticle}
-        validate={(values) => {
-          console.log('start validate: ', values)
-          const errors = cleanError({
-            name: first(
-              required(values.name),
-              maxLength(values.name, 10),
-              minLength(values.name, 3),
-            ),
-            price: required(values.price),
-            qty: required(values.qty),
-          })
-          return errors
-        }}
+        validate={validate}
         onSubmit={async (values, { setSubmitting }) => {
           console.log('submit')
 
