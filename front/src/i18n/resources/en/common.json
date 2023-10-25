@@ -6,5 +6,7 @@
   "Ceci est la version en {{language}}.": "This is the {{language}} version.",
   "Ajouter": "Add",
   "Supprimer": "Delete",
-  "Rafraîchir": "Refresh"
+  "Rafraîchir": "Refresh",
+  "Identifiant": "Login",
+  "Mot de passe": "Password"
 }

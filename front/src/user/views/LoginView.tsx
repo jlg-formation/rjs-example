@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import { useUser } from '../UserContext'
 import { AuthenticationError } from '../AuthenticationError'
 import Title from '../../widgets/Title'
+import { useTranslation } from 'react-i18next'
 
 const LoginView = () => {
+  const { t } = useTranslation()
   const { login, referrer } = useUser()
   const [errorMsg, setErrorMsg] = useState('')
 
@@ -38,18 +40,18 @@ const LoginView = () => {
 
   return (
     <main>
-      <Title>Login</Title>
+      <Title>{t('Se connecter')}</Title>
       <form onSubmit={handleSubmit}>
         <label>
-          <span>Login</span>
+          <span>{t('Identifiant')}</span>
           <input type="text" name="login" defaultValue="" />
         </label>
         <label>
-          <span>Password</span>
+          <span>{t('Mot de passe')}</span>
           <input type="password" name="password" />
         </label>
         <div className="error">{errorMsg}</div>
-        <button className="primary">Se connecter</button>
+        <button className="primary">{t('Se connecter')}</button>
       </form>
     </main>
   )
