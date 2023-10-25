@@ -11,7 +11,11 @@ const LanguageSwitch = () => {
     setLanguage(i18n.language)
   }
 
-  return <button onClick={handleClick}>{language}</button>
+  return (
+    <button className="language-switch" onClick={handleClick}>
+      {language}
+    </button>
+  )
 }
 
 export default LanguageSwitch

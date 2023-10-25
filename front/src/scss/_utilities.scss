@@ -1,4 +1,8 @@
 div.utilities {
   display: flex;
-  gap: 0.3em;
+  gap: 0.5em;
+
+  button.language-switch {
+    width: 3em;
+  }
 }
