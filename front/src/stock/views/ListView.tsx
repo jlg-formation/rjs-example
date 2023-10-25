@@ -24,6 +24,8 @@ const ListView = () => {
 
   const [selectedArticle, setSelectedArticle] = useState(new Set<Article>())
 
+  const count = articles.length
+
   useEffect(() => {
     console.log('hasAlreadyLoaded: ', hasAlreadyLoaded)
     if (hasAlreadyLoaded === false) {
@@ -57,6 +59,7 @@ const ListView = () => {
   return (
     <main css={s}>
       <Title>{t('Liste des articles')}</Title>
+      <p>{t('Il y a actuellement {{count}} articles.', { count })}</p>
       <div className="content">
         <nav>
           <AsyncIconButton
@@ -118,6 +121,9 @@ const ListView = () => {
 export default ListView
 
 const s = css`
+  p {
+    width: auto;
+  }
   > div.content {
     display: flex;
     flex-flow: column;

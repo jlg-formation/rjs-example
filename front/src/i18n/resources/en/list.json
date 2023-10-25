@@ -1,3 +1,6 @@
 {
-  "Liste des articles": "Article List"
+  "Liste des articles": "Article List",
+  "Il y a actuellement {{count}} articles._other": "There are {{count}} articles.",
+  "Il y a actuellement {{count}} articles._one": "There is {{count}} article.",
+  "Il y a actuellement {{count}} articles._zero": "There is no article."
 }

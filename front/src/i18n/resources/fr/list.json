@@ -1,0 +1,5 @@
+{
+  "Il y a actuellement {{count}} articles._other": "Il y a actuellement {{count}} articles.",
+  "Il y a actuellement {{count}} articles._one": "Il y a actuellement {{count}} article.",
+  "Il y a actuellement {{count}} articles._zero": "Aucun article."
+}
