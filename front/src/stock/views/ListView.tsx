@@ -12,9 +12,12 @@ import AsyncIconButton from '../../widgets/AsyncIconButton'
 import { Article } from '../interfaces/Article'
 import { useArticleStore } from '../store/ArticleStore'
 import Title from '../../widgets/Title'
+import { useTranslation } from 'react-i18next'
 
 const ListView = () => {
   console.log('render ListView')
+
+  const { t } = useTranslation('list')
 
   const { articles, hasAlreadyLoaded, loadingError, refresh, remove } =
     useArticleStore()
@@ -53,20 +56,20 @@ const ListView = () => {
 
   return (
     <main css={s}>
-      <Title>Liste des articles</Title>
+      <Title>{t('Liste des articles')}</Title>
       <div className="content">
         <nav>
           <AsyncIconButton
-            title="Rafraîchir"
+            title={t('Rafraîchir')}
             asyncCallback={handleRefresh}
             icon={faRotateForward}
           />
-          <Link to="add" className="button" title="Ajouter">
+          <Link to="add" className="button" title={t('Ajouter')}>
             <FontAwesomeIcon icon={faPlus} />
           </Link>
           {selectedArticle.size > 0 && (
             <AsyncIconButton
-              title="Supprimer"
+              title={t('Supprimer')}
               asyncCallback={handleRemove}
               icon={faTrashAlt}
             />

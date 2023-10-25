@@ -3,5 +3,8 @@
   "Mentions Légales": "Legal",
   "en": "English",
   "fr": "French",
-  "Ceci est la version en {{language}}.": "This is the {{language}} version."
+  "Ceci est la version en {{language}}.": "This is the {{language}} version.",
+  "Ajouter": "Add",
+  "Supprimer": "Delete",
+  "Rafraîchir": "Refresh"
 }
