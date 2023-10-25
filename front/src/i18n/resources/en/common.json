@@ -8,5 +8,6 @@
   "Supprimer": "Delete",
   "Rafraîchir": "Refresh",
   "Identifiant": "Login",
-  "Mot de passe": "Password"
+  "Mot de passe": "Password",
+  "Se déconnecter": "Sign out"
 }
