@@ -10,7 +10,7 @@ const HomeView = () => {
     <main css={s}>
       <h1>{t('Gérer efficacement votre stock !')}</h1>
       <Link to="/stock" className="button primary">
-        <span>Voir le stock</span>
+        <span>{t('Voir le stock')}</span>
         <FontAwesomeIcon icon={faAngleRight} />
       </Link>
     </main>
