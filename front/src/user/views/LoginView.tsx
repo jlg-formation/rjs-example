@@ -42,7 +42,7 @@ const LoginView = () => {
       <form onSubmit={handleSubmit}>
         <label>
           <span>Login</span>
-          <input type="text" name="login" defaultValue="qqq" />
+          <input type="text" name="login" defaultValue="" />
         </label>
         <label>
           <span>Password</span>
