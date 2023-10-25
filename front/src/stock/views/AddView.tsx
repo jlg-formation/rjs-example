@@ -1,76 +1,124 @@
 import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  ChangeEvent,
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-  useState,
-} from 'react'
+import { Formik } from 'formik'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import {
+  cleanError,
+  first,
+  isFormInvalid,
+  maxLength,
+  minLength,
+  required,
+} from '../../validation/misc'
+import Title from '../../widgets/Title'
 import { NewArticle } from '../interfaces/Article'
 import { useArticleStore } from '../store/ArticleStore'
-import Title from '../../widgets/Title'
-
-const handleChange =
-  <T,>(setState: Dispatch<SetStateAction<T>>) =>
-  (event: ChangeEvent<HTMLInputElement>) => {
-    setState(event.target.value as T)
-  }
 
 const AddView = () => {
-  const [name, setName] = useState('Truc')
-  const [price, setPrice] = useState(0)
-  const [qty, setQty] = useState(0)
-
-  const [isAdding, setIsAdding] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
 
   const { add, refresh } = useArticleStore()
   const navigate = useNavigate()
 
-  const handleSubmit = async (event: FormEvent<HTMLElement>) => {
-    try {
-      event.preventDefault()
-      setIsAdding(true)
-      const newArticle: NewArticle = { name, price, qty }
-      await add(newArticle)
-      await refresh()
-      navigate('..')
-    } catch (err) {
-      console.log('err: ', err)
-    } finally {
-      setIsAdding(false)
-    }
-  }
+  const newArticle: NewArticle = { name: '', price: 0, qty: 0 }
 
   return (
     <main>
       <Title>Ajouter un article</Title>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <span>Nom</span>
-          <input type="text" value={name} onChange={handleChange(setName)} />
-        </label>
-        <label>
-          <span>Prix</span>
-          <input
-            type="number"
-            value={price}
-            onChange={handleChange(setPrice)}
-          />
-        </label>
-        <label>
-          <span>Quantité</span>
-          <input type="number" value={qty} onChange={handleChange(setQty)} />
-        </label>
-        <button className="primary" disabled={isAdding}>
-          <FontAwesomeIcon
-            icon={isAdding ? faCircleNotch : faPlus}
-            spin={isAdding}
-          />
-          <span>Ajouter</span>
-        </button>
-      </form>
+      <Formik
+        initialValues={newArticle}
+        validate={(values) => {
+          console.log('start validate: ', values)
+          const errors = cleanError({
+            name: first(
+              required(values.name),
+              maxLength(values.name, 10),
+              minLength(values.name, 3),
+            ),
+            price: required(values.price),
+            qty: required(values.qty),
+          })
+          return errors
+        }}
+        onSubmit={async (values, { setSubmitting }) => {
+          console.log('submit')
+
+          try {
+            setErrorMsg('')
+            const newArticle: NewArticle = values
+            await add(newArticle)
+            await refresh()
+            navigate('..')
+          } catch (err) {
+            console.log('err: ', err)
+            setErrorMsg('Erreur Technique')
+          } finally {
+            setSubmitting(false)
+          }
+        }}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+          /* and other goodies */
+        }) => {
+          return (
+            <form onSubmit={handleSubmit}>
+              <label>
+                <span>Nom</span>
+                <input
+                  type="text"
+                  name="name"
+                  value={values.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                <span className="error">{touched.name && errors.name}</span>
+              </label>
+              <label>
+                <span>Prix</span>
+                <input
+                  type="number"
+                  name="price"
+                  value={values.price}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                <span className="error">{touched.price && errors.price}</span>
+              </label>
+              <label>
+                <span>Quantité</span>
+                <input
+                  type="number"
+                  name="qty"
+                  value={values.qty}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                <span className="error">{touched.qty && errors.qty}</span>
+              </label>
+              <div className="error">{errorMsg}</div>
+              <button
+                type="submit"
+                className="primary"
+                disabled={isFormInvalid(errors) || isSubmitting}
+              >
+                <FontAwesomeIcon
+                  icon={isSubmitting ? faCircleNotch : faPlus}
+                  spin={isSubmitting}
+                />
+                <span>Ajouter</span>
+              </button>
+            </form>
+          )
+        }}
+      </Formik>
     </main>
   )
 }
